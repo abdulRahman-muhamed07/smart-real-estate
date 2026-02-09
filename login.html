@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول | العقار الذكي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
+</head>
+
+<body class="h-screen bg-auth flex items-center justify-center p-4 relative">
+    <a href="index.html"
+        class="absolute top-10 right-10 text-white font-black flex items-center gap-2 bg-black/30 px-6 py-3 rounded-2xl backdrop-blur-md hover:bg-black/50 transition">
+        🏠 العودة للرئيسية
+    </a>
+    <div class="glass-card p-12 lg:p-16 rounded-[3.5rem] shadow-2xl w-full max-w-lg text-center animate-section">
+        <h2 class="text-3xl font-black mb-10 text-slate-800">تسجيل الدخول</h2>
+        <div class="space-y-6">
+            <input type="email" placeholder="البريد الإليكتروني"
+                class="w-full p-4.5 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-sky-500 outline-none transition text-right font-bold">
+            <div class="relative">
+                <input type="password" placeholder="كلمة المرور"
+                    class="w-full p-4.5 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-sky-500 outline-none transition text-right font-bold">
+                <span class="absolute left-4 top-4.5 text-slate-400 cursor-pointer">👁️</span>
+            </div>
+            <div class="flex justify-between items-center text-sm font-bold px-1">
+                <label class="flex items-center gap-2 cursor-pointer text-slate-600">
+                    <input type="checkbox" class="w-4 h-4 rounded border-slate-300"> تذكرني لاحقاً
+                </label>
+                <a href="#" class="text-orange-500 hover:underline">نسيت كلمة المرور؟</a>
+            </div>
+            <a href="home.html"
+                class="block w-full bg-sky-500 hover:bg-sky-600 text-white py-5 rounded-2xl font-black shadow-lg shadow-sky-100 transition-all text-lg mt-4">
+                تسجيل الدخول
+            </a>
+            <div class="relative py-4">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-slate-200"></div>
+                </div>
+                <div class="relative flex justify-center text-sm font-bold"><span
+                        class="px-4 bg-white/50 text-slate-500">أو</span></div>
+            </div>
+            <button
+                class="w-full bg-white border-2 border-slate-100 hover:bg-slate-50 py-4.5 rounded-2xl flex items-center justify-center gap-3 transition-all font-black text-slate-700">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-6 h-6" alt="Google">
+                تسجيل دخول بواسطة جوجل
+            </button>
+        </div>
+        <p class="mt-10 text-slate-600 font-bold">
+            لا يوجد لديك حساب؟ <a href="signup.html" class="text-purple-600 hover:underline">انشاء حساب جديد</a>
+        </p>
+    </div>
+    <script src="assets/js/scripts.js"></script>
+</body>
+
+</html>

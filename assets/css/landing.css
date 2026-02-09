@@ -1,0 +1,5 @@
+/* Landing specific if any, currently mostly tailwind but we can add custom ones here */
+/* For example, the valuation card specific tweaks if not handled by tailwind */
+#valuation-card {
+    /* transition: all 0.3s ease; */
+}

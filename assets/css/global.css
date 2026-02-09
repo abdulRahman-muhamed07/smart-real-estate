@@ -1,0 +1,32 @@
+:root {
+    --brand-purple: #6D28D9;
+    --brand-lime: #D9F99D;
+}
+
+body { 
+    font-family: 'Cairo', sans-serif; 
+    scroll-behavior: smooth; 
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-section { 
+    animation: slideUp 0.6s ease-out forwards; 
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--brand-purple); }
+
+.hidden-page { display: none; }
+
+.nav-link-active {
+    color: var(--brand-purple);
+    font-weight: 700;
+    border-bottom: 2px solid var(--brand-purple);
+}

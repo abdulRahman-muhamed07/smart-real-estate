@@ -1,0 +1,5 @@
+.property-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Any other home-specific styles can go here */
