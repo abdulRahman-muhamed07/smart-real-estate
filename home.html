@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>العقار الذكي | Smart Real Estate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-purple: #6D28D9;
+            --brand-lime: #D9F99D;
+        }
+        body { font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
+        
+        .bg-auth {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1600585154340-be6199f7d009?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-position: center;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .hidden-page { display: none; }
+        
+        .nav-link-active {
+            color: var(--brand-purple);
+            font-weight: 700;
+            border-bottom: 2px solid var(--brand-purple);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-section { animation: slideUp 0.6s ease-out forwards; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--brand-purple); }
+
+        .property-card:hover img { transform: scale(1.05); }
+    </style>
+</head>
+<body class="bg-white text-slate-900">
+
+    <!-- Universal Header -->
+    <header id="main-nav" class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-[100]">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-12">
+                <div onclick="showPage('landing')" class="text-2xl font-black text-purple-700 flex items-center gap-2 cursor-pointer">
+                    <span class="bg-purple-600 text-white p-1 rounded-lg">🏠</span> العقار الذكي
+                </div>
+                <ul class="hidden lg:flex gap-8 text-slate-600 font-bold text-sm">
+                    <li id="nav-landing" onclick="showPage('landing')" class="hover:text-purple-600 cursor-pointer transition">الرئيسية</li>
+                    <li id="nav-home" onclick="showPage('home')" class="hover:text-purple-600 cursor-pointer transition">شراء</li>
+                    <li class="hover:text-purple-600 cursor-pointer transition">بيع</li>
+                    <li class="hover:text-purple-600 cursor-pointer transition">إيجار</li>
+                    <li onclick="showPage('home')" class="text-purple-600 flex items-center gap-1 cursor-pointer">بحث AI <span class="text-[10px] bg-purple-100 px-1 rounded">PRO</span></li>
+                    <li class="hover:text-purple-600 cursor-pointer transition">من نحن</li>
+                </ul>
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="showPage('login')" class="px-5 py-2 text-slate-700 font-bold hover:text-purple-600 transition">تسجيل دخول</button>
+                <button onclick="showPage('home')" class="px-6 py-2.5 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700 shadow-lg shadow-purple-100 transition">ابدأ الآن</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page 1: Landing Page (Desktop - 1) -->
+    <main id="page-landing" class="animate-section">
+        <!-- Hero -->
+        <section class="py-16 lg:py-24 bg-white">
+            <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-5xl lg:text-7xl font-black leading-[1.15] mb-8">
+                        اكتشف سعر عقارك مع <br><span class="text-purple-600">الذكاء الاصطناعي</span>
+                    </h1>
+                    <p class="text-slate-500 text-xl mb-10 leading-relaxed max-w-lg">
+                        أدخل مواصفات العقار واحصل على تقييم دقيق للسعر باستخدام تقنيات الذكاء الاصطناعي المتطورة.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="showPage('home')" class="bg-purple-600 text-white px-10 py-4 rounded-2xl font-black shadow-xl hover:shadow-purple-200 transition-all hover:-translate-y-1">تصفح العقارات</button>
+                        <button onclick="document.getElementById('valuation-card').scrollIntoView()" class="border-2 border-purple-600 text-purple-600 px-10 py-4 rounded-2xl font-black hover:bg-purple-50 transition-all">ابدأ التقييم الآن</button>
+                    </div>
+                </div>
+                
+                <!-- Quick Valuation Form -->
+                <div id="valuation-card" class="bg-slate-50 p-10 rounded-[3rem] shadow-2xl border border-slate-100">
+                    <h3 class="text-2xl font-black mb-8 text-center">تقييم سريع</h3>
+                    <div class="space-y-6 text-right">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2 mr-1">نوع العقار</label>
+                            <select id="val-type" class="w-full p-4 border border-slate-200 rounded-2xl bg-white focus:ring-2 focus:ring-purple-500 outline-none transition font-bold">
+                                <option value="شقة">شقة</option>
+                                <option value="فيلا">فيلا</option>
+                                <option value="مكتب">مكتب</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2 mr-1">المساحة (متر مربع)</label>
+                            <input id="val-area" type="number" placeholder="مثال: 200" class="w-full p-4 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-purple-500 outline-none transition font-bold text-right">
+                        </div>
+                        <button onclick="handleValuation()" class="w-full bg-lime-400 hover:bg-lime-500 text-black font-black py-5 rounded-2xl mt-4 shadow-lg active:scale-95 transition-all text-lg">
+                            تقييم سريع بواسطة AI
+                        </button>
+                        <div id="val-result" class="mt-4 p-4 bg-white rounded-xl border border-slate-200 hidden animate-section text-sm text-slate-700 font-medium"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Us (Desktop 1 Section 2) -->
+        <section class="py-24 bg-slate-50">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-black mb-4">لماذا العقار الذكي؟</h2>
+                <p class="text-slate-500 mb-16 font-bold">تقنيات متطورة لتقييم العقارات بدقة عالية</p>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all">
+                        <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-3xl mb-6 mx-auto">🚀</div>
+                        <h4 class="font-black text-xl mb-4">تحليل السوق الفوري</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">متابعة مستمرة لأسعار السوق والاتجاهات الحديثة لضمان أفضل قيمة.</p>
+                    </div>
+                    <div class="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all">
+                        <div class="w-16 h-16 bg-lime-100 text-lime-700 rounded-2xl flex items-center justify-center text-3xl mb-6 mx-auto">🛡️</div>
+                        <h4 class="font-black text-xl mb-4">موثوقية عالية</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">دقة تصل إلى 95% في التقييمات مع ضمان الشفافية الكاملة.</p>
+                    </div>
+                    <div class="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all">
+                        <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-3xl mb-6 mx-auto">🤖</div>
+                        <h4 class="font-black text-xl mb-4">ذكاء اصطناعي متطور</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">خوارزميات متقدمة تحلل آلاف البيانات لتقديم تقييم دقيق في ثوانٍ.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services (Desktop 1 Section 3) -->
+        <section class="py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-black mb-4">خدماتنا</h2>
+                    <p class="text-slate-500 font-bold">حلول شاملة لجميع احتياجاتك العقارية</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Service 1 -->
+                    <div class="group cursor-pointer">
+                        <div class="relative overflow-hidden rounded-[2.5rem] h-80 mb-6 shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-8 text-white">
+                                <h4 class="font-black text-xl mb-2">تقييم بالذكاء الاصطناعي</h4>
+                                <p class="text-sm text-white/80 mb-4">احصل على تقييم فوري ودقيق لعقارك خلال ثوانٍ.</p>
+                                <button class="text-lime-400 font-bold flex items-center gap-2">تعرف أكثر <span>←</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Service 2 -->
+                    <div class="group cursor-pointer">
+                        <div class="relative overflow-hidden rounded-[2.5rem] h-80 mb-6 shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1582408921715-18e7806367c1?auto=format&fit=crop&w=800" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-8 text-white">
+                                <h4 class="font-black text-xl mb-2">بيع عقار</h4>
+                                <p class="text-sm text-white/80 mb-4">اعرض عقارك بالسعر الأمثل باستخدام تحليل السوق الذكي.</p>
+                                <button class="text-lime-400 font-bold flex items-center gap-2">ابدأ البيع <span>←</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Service 3 -->
+                    <div class="group cursor-pointer">
+                        <div class="relative overflow-hidden rounded-[2.5rem] h-80 mb-6 shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-8 text-white">
+                                <h4 class="font-black text-xl mb-2">شراء عقار</h4>
+                                <p class="text-sm text-white/80 mb-4">ابحث واقتنِ العقار المناسب مع تقييم AI دقيق للأسعار.</p>
+                                <button onclick="showPage('home')" class="text-lime-400 font-bold flex items-center gap-2">ابدأ البحث <span>←</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it works (Desktop 1 Section 4) -->
+        <section class="py-24 bg-purple-700 text-white overflow-hidden relative">
+            <div class="container mx-auto px-6 relative z-10">
+                <h2 class="text-4xl font-black mb-16 text-center">كيف يعمل النظام؟</h2>
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div class="text-center group">
+                        <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center text-3xl font-black mb-6 mx-auto border border-white/20 group-hover:bg-lime-400 group-hover:text-black transition-all">1</div>
+                        <h4 class="font-black text-lg mb-2">ادخل المواصفات</h4>
+                        <p class="text-white/60 text-sm">اكتب تفاصيل العقار مثل المساحة والموقع والمميزات.</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center text-3xl font-black mb-6 mx-auto border border-white/20 group-hover:bg-lime-400 group-hover:text-black transition-all">2</div>
+                        <h4 class="font-black text-lg mb-2">تحليل البيانات</h4>
+                        <p class="text-white/60 text-sm">الذكاء الاصطناعي يحلل البيانات ويقارنها بالسوق.</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center text-3xl font-black mb-6 mx-auto border border-white/20 group-hover:bg-lime-400 group-hover:text-black transition-all">3</div>
+                        <h4 class="font-black text-lg mb-2">التقييم الفوري</h4>
+                        <p class="text-white/60 text-sm">احصل على تقييم دقيق خلال ثوانٍ معدودة.</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center text-3xl font-black mb-6 mx-auto border border-white/20 group-hover:bg-lime-400 group-hover:text-black transition-all">4</div>
+                        <h4 class="font-black text-lg mb-2">اتخذ القرار</h4>
+                        <p class="text-white/60 text-sm">استخدم التقييم لاتخاذ قرار مدروس بالبيع أو الشراء.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- BG Decoration -->
+            <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        </section>
+
+        <!-- CTA -->
+        <section class="py-24 bg-white text-center">
+            <div class="container mx-auto px-6 max-w-4xl bg-slate-900 rounded-[3.5rem] p-16 text-white shadow-2xl">
+                <h2 class="text-4xl font-black mb-6">جرب التقييم الذكي الآن</h2>
+                <p class="text-white/60 text-xl mb-12">احصل على تقييم مجاني لعقارك واكتشف قيمته الحقيقية</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button onclick="showPage('signup')" class="bg-lime-400 text-black px-10 py-4 rounded-2xl font-black shadow-lg hover:bg-lime-500 transition">ابدأ التقييم المجاني</button>
+                    <button class="border-2 border-white/20 text-white px-10 py-4 rounded-2xl font-black hover:bg-white/10 transition">تواصل معنا</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Page 2: Property Home (Desktop - 4) -->
+    <main id="page-home" class="hidden-page animate-section">
+        <div class="container mx-auto px-6 py-12">
+            <!-- Search / Filter Area -->
+            <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
+                <div>
+                    <h2 class="text-4xl font-black text-slate-900 mb-2">اكتشف العقارات</h2>
+                    <p class="text-slate-500 font-bold">أفضل العروض المختارة لك بدقة الذكاء الاصطناعي</p>
+                </div>
+                <div class="flex gap-3">
+                    <div class="relative">
+                        <input type="text" placeholder="ابحث بالمدينة أو الحي..." class="bg-white border border-slate-200 px-6 py-3.5 rounded-2xl w-80 shadow-sm focus:ring-2 focus:ring-purple-600 outline-none pr-12 text-right">
+                        <span class="absolute right-4 top-4 text-slate-400">🔍</span>
+                    </div>
+                    <button class="bg-slate-900 text-white px-6 py-3.5 rounded-2xl font-bold flex items-center gap-2 shadow-lg">
+                        <span>تصفية</span>
+                        <span class="text-xs">▼</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Category 1: All Properties -->
+            <div class="mb-20">
+                <div class="flex justify-between items-center mb-8">
+                    <h3 class="text-2xl font-black text-slate-800">كل العقارات</h3>
+                    <button class="text-purple-600 font-bold flex items-center gap-1 hover:underline">عرض الكل <span>←</span></button>
+                </div>
+                <div id="grid-all" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <!-- Cards via JS -->
+                </div>
+            </div>
+
+            <!-- Category 2: Most Visited -->
+            <div class="mb-20">
+                <div class="flex justify-between items-center mb-8">
+                    <h3 class="text-2xl font-black text-slate-800">العقارات الأكثر زيارة</h3>
+                    <button class="text-purple-600 font-bold flex items-center gap-1 hover:underline">عرض الكل <span>←</span></button>
+                </div>
+                <div id="grid-visited" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <!-- Cards via JS -->
+                </div>
+            </div>
+
+            <!-- Category 3: Best Sellers (Cities) -->
+            <div class="mb-20">
+                <div class="flex justify-between items-center mb-8">
+                    <h3 class="text-2xl font-black text-slate-800">الأماكن الأكثر مبيعاً</h3>
+                    <button class="text-purple-600 font-bold flex items-center gap-1 hover:underline">عرض الكل <span>←</span></button>
+                </div>
+                <div id="grid-locations" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <!-- Location Cards via JS -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Page 3: Login (Desktop - 2) -->
+    <main id="page-login" class="hidden-page h-screen bg-auth flex items-center justify-center p-4 relative">
+        <button onclick="showPage('landing')" class="absolute top-10 right-10 text-white font-black flex items-center gap-2 bg-black/30 px-6 py-3 rounded-2xl backdrop-blur-md hover:bg-black/50 transition">
+            🏠 العودة للرئيسية
+        </button>
+        <div class="glass-card p-12 lg:p-16 rounded-[3.5rem] shadow-2xl w-full max-w-lg text-center animate-section">
+            <h2 class="text-3xl font-black mb-10 text-slate-800">تسجيل الدخول</h2>
+            <div class="space-y-6">
+                <input type="email" placeholder="البريد الإليكتروني" class="w-full p-4.5 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-sky-500 outline-none transition text-right font-bold">
+                <div class="relative">
+                    <input type="password" placeholder="كلمة المرور" class="w-full p-4.5 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-sky-500 outline-none transition text-right font-bold">
+                    <span class="absolute left-4 top-4.5 text-slate-400 cursor-pointer">👁️</span>
+                </div>
+                <div class="flex justify-between items-center text-sm font-bold px-1">
+                    <label class="flex items-center gap-2 cursor-pointer text-slate-600">
+                        <input type="checkbox" class="w-4 h-4 rounded border-slate-300"> تذكرني لاحقاً
+                    </label>
+                    <a href="#" class="text-orange-500 hover:underline">نسيت كلمة المرور؟</a>
+                </div>
+                <button onclick="showPage('home')" class="w-full bg-sky-500 hover:bg-sky-600 text-white py-5 rounded-2xl font-black shadow-lg shadow-sky-100 transition-all text-lg mt-4">
+                    تسجيل الدخول
+                </button>
+                <div class="relative py-4">
+                    <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-200"></div></div>
+                    <div class="relative flex justify-center text-sm font-bold"><span class="px-4 bg-white/50 text-slate-500">أو</span></div>
+                </div>
+                <button class="w-full bg-white border-2 border-slate-100 hover:bg-slate-50 py-4.5 rounded-2xl flex items-center justify-center gap-3 transition-all font-black text-slate-700">
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-6 h-6" alt="Google">
+                    تسجيل دخول بواسطة جوجل
+                </button>
+            </div>
+            <p class="mt-10 text-slate-600 font-bold">
+                لا يوجد لديك حساب؟ <a href="javascript:showPage('signup')" class="text-purple-600 hover:underline">انشاء حساب جديد</a>
+            </p>
+        </div>
+    </main>
+
+    <!-- Page 4: Sign Up (Desktop - 3) -->
+    <main id="page-signup" class="hidden-page min-h-screen bg-auth flex items-center justify-center py-16 px-4 relative">
+        <button onclick="showPage('landing')" class="absolute top-10 right-10 text-white font-black flex items-center gap-2 bg-black/30 px-6 py-3 rounded-2xl backdrop-blur-md hover:bg-black/50 transition">
+            🏠 العودة للرئيسية
+        </button>
+        <div class="glass-card p-12 lg:p-16 rounded-[3.5rem] shadow-2xl w-full max-w-xl text-center animate-section">
+            <h2 class="text-3xl font-black mb-8 text-slate-800">انشاء حساب جديد</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5 text-right font-bold">
+                <div>
+                    <label class="block text-xs text-slate-500 mb-1.5 mr-2 uppercase tracking-wide">الاسم الأول</label>
+                    <input type="text" placeholder="محمد" class="w-full p-4 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-sky-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-500 mb-1.5 mr-2 uppercase tracking-wide">اسم العائلة</label>
+                    <input type="text" placeholder="علي" class="w-full p-4 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-sky-500 outline-none">
+                </div>
+            </div>
+            <div class="space-y-5 text-right font-bold">
+                <div>
+                    <label class="block text-xs text-slate-500 mb-1.5 mr-2 uppercase tracking-wide">البريد الإليكتروني</label>
+                    <input type="email" placeholder="example@mail.com" class="w-full p-4 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-sky-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-500 mb-1.5 mr-2 uppercase tracking-wide">رقم الهاتف</label>
+                    <div class="flex flex-row-reverse group">
+                        <span class="p-4 border border-l-0 border-slate-200 bg-slate-50 rounded-r-2xl text-slate-500">+20</span>
+                        <input type="text" placeholder="10XXXXXXXX" class="w-full p-4 border border-slate-200 rounded-l-2xl focus:ring-2 focus:ring-sky-500 outline-none">
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-xs text-slate-500 mb-1.5 mr-2 uppercase tracking-wide">كلمة المرور</label>
+                        <input type="password" class="w-full p-4 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-sky-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-500 mb-1.5 mr-2 uppercase tracking-wide">تأكيد كلمة المرور</label>
+                        <input type="password" class="w-full p-4 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-sky-500 outline-none">
+                    </div>
+                </div>
+                <button onclick="showPage('home')" class="w-full bg-sky-500 hover:bg-sky-600 text-white py-5 rounded-2xl font-black shadow-lg shadow-sky-100 transition-all text-lg mt-4">
+                    انشاء حساب
+                </button>
+            </div>
+            <p class="mt-10 text-slate-600 font-bold">
+                لديك حساب بالفعل؟ <a href="javascript:showPage('login')" class="text-purple-600 hover:underline">تسجيل دخول</a>
+            </p>
+        </div>
+    </main>
+
+    <!-- AI Floating Chatbot -->
+    <div id="chat-container" class="fixed bottom-8 left-8 z-[200]">
+        <button onclick="toggleChat()" class="w-18 h-18 bg-purple-600 hover:bg-purple-700 text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-90 group relative">
+            <span class="text-3xl">✨</span>
+            <div class="absolute bottom-20 left-0 bg-slate-900 text-white px-4 py-2 rounded-xl text-xs font-bold w-48 hidden group-hover:block animate-section">
+                محتاج مساعدة؟ المساعد الذكي موجود 🤖
+            </div>
+        </button>
+        <!-- Modal inside logic managed by callGemini in script -->
+    </div>
+
+    <!-- AI Chat Modal -->
+    <div id="ai-chat-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[300] hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-xl rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden h-[80vh]">
+            <div class="bg-purple-600 p-8 text-white flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <span class="text-3xl">🤖</span>
+                    <div>
+                        <h4 class="font-black text-xl">المساعد العقاري الذكي</h4>
+                        <p class="text-xs text-purple-200">مدعوم بـ Gemini 2.5 Flash</p>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" class="text-white/60 hover:text-white text-2xl font-bold">✕</button>
+            </div>
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-8 space-y-6 bg-slate-50">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 max-w-[85%] font-bold text-slate-700">
+                    أهلاً بيك! أنا المساعد الذكي الخاص بـ "العقار الذكي". اسألني عن أسعار المناطق، النصائح القانونية، أو حتى الترشيحات.
+                </div>
+            </div>
+            <div class="p-8 bg-white border-t border-slate-100 flex gap-4">
+                <input id="chat-input" type="text" placeholder="اكتب سؤالك هنا..." class="flex-1 p-5 border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-purple-600 transition font-bold">
+                <button onclick="sendChatMessage()" class="bg-purple-600 text-white p-5 rounded-2xl hover:bg-purple-700 transition active:scale-95 shadow-lg">إرسال</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Universal Footer -->
+    <footer id="main-footer" class="bg-slate-950 text-white pt-24 pb-12 mt-24">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
+            <div>
+                <div onclick="showPage('landing')" class="text-3xl font-black mb-8 flex items-center gap-2 cursor-pointer">
+                    <span class="bg-purple-600 text-white p-1 rounded-lg">🏠</span> العقار الذكي
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">The future of real estate powered by artificial intelligence. نحن هنا لنرسم ملامح جديدة لعالم العقارات.</p>
+                <div class="flex gap-4 mt-8">
+                    <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center hover:bg-purple-600 transition cursor-pointer">FB</div>
+                    <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center hover:bg-purple-600 transition cursor-pointer">TW</div>
+                    <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center hover:bg-purple-600 transition cursor-pointer">IN</div>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-black mb-8 text-xl text-purple-400 uppercase tracking-widest text-sm">Services</h4>
+                <ul class="text-slate-400 space-y-4 font-bold">
+                    <li><a href="#" class="hover:text-white transition">Buy Property</a></li>
+                    <li><a href="#" class="hover:text-white transition">Rent Property</a></li>
+                    <li><a href="#" class="hover:text-white transition">Sell Property</a></li>
+                    <li><a href="#" class="hover:text-white transition">AI Valuation</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-black mb-8 text-xl text-purple-400 uppercase tracking-widest text-sm">Company</h4>
+                <ul class="text-slate-400 space-y-4 font-bold">
+                    <li><a href="#" class="hover:text-white transition">About Us</a></li>
+                    <li><a href="#" class="hover:text-white transition">Careers</a></li>
+                    <li><a href="#" class="hover:text-white transition">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-black mb-8 text-xl text-purple-400 uppercase tracking-widest text-sm">Support</h4>
+                <ul class="text-slate-400 space-y-4 font-bold">
+                    <li><a href="#" class="hover:text-white transition">Help Center</a></li>
+                    <li><a href="#" class="hover:text-white transition">Documentation</a></li>
+                    <li><a href="#" class="hover:text-white transition">Status</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 border-t border-white/5 mt-20 pt-10 text-center text-slate-500 font-bold text-sm">
+            © 2025 العقار الذكي. All rights reserved. Made with ✨ & AI.
+        </div>
+    </footer>
+
+    <!-- Scripts Logic -->
+    <script>
+        const apiKey = ""; // API Key provided by system
+        const modelName = "gemini-2.5-flash-preview-09-2025";
+
+        // Navigation Controller
+        function showPage(pageId) {
+            // Hide all
+            document.querySelectorAll('main').forEach(m => m.classList.add('hidden-page'));
+            
+            // Show target
+            const target = document.getElementById('page-' + pageId);
+            if (target) target.classList.remove('hidden-page');
+
+            // Handle Nav & Footer visibility
+            const nav = document.getElementById('main-nav');
+            const footer = document.getElementById('main-footer');
+            const chat = document.getElementById('chat-container');
+
+            if (pageId === 'login' || pageId === 'signup') {
+                nav.classList.add('hidden-page');
+                footer.classList.add('hidden-page');
+                chat.classList.add('hidden-page');
+            } else {
+                nav.classList.remove('hidden-page');
+                footer.classList.remove('hidden-page');
+                chat.classList.remove('hidden-page');
+                
+                // Update active nav link
+                document.getElementById('nav-landing').classList.remove('nav-link-active');
+                document.getElementById('nav-home').classList.remove('nav-link-active');
+                if (pageId === 'landing' || pageId === 'home') {
+                    document.getElementById('nav-' + pageId).classList.add('nav-link-active');
+                }
+            }
+            window.scrollTo(0, 0);
+        }
+
+        // Gemini API Wrapper
+        async function callGemini(prompt, system = "", search = false) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: system ? { parts: [{ text: system }] } : undefined,
+                ...(search && { tools: [{ "google_search": {} }] })
+            };
+
+            for (let i = 0; i < 5; i++) {
+                try {
+                    const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    const data = await res.json();
+                    return data.candidates?.[0]?.content?.parts?.[0]?.text || "عذراً، حدث خطأ.";
+                } catch (e) {
+                    await new Promise(r => setTimeout(r, Math.pow(2, i) * 1000));
+                }
+            }
+            return "فشل الاتصال بالذكاء الاصطناعي.";
+        }
+
+        // Valuation Handler
+        async function handleValuation() {
+            const type = document.getElementById('val-type').value;
+            const area = document.getElementById('val-area').value;
+            const resDiv = document.getElementById('val-result');
+            if (!area) return;
+
+            resDiv.innerHTML = "✨ جاري التقييم بواسطة AI...";
+            resDiv.classList.remove('hidden');
+
+            const prompt = `أعطني تقييم سعري تقريبي بالجنيه المصري لعقار من نوع ${type} بمساحة ${area} متر مربع في منطقة راقية بالقاهرة. اذكر نطاق السعر و3 نقاط سريعة تبرر التقييم.`;
+            const system = "أنت خبير تثمين عقاري مصري محترف. رد باللغة العربية بأسلوب جذاب ومختصر.";
+            
+            const response = await callGemini(prompt, system);
+            resDiv.innerHTML = `<strong>✨ التقرير المقترح:</strong><br>${response.replace(/\n/g, '<br>')}`;
+        }
+
+        // Property Rendering Data
+        const propertyList = [
+            { id: 1, price: '$3,200/mo', type: 'For Rent', title: 'Smart Family Home', beds: 4, baths: 3, sqft: '2,800', loc: 'Cairo, Egypt', match: '92%', rating: 4.8, img: 'https://images.unsplash.com/photo-1600585154340-be6199f7d009?auto=format&fit=crop&w=800' },
+            { id: 2, price: '$850,000', type: 'For Sale', title: 'Modern Penthouse', beds: 3, baths: 2, sqft: '2,100', loc: 'Zayed, Egypt', match: '95%', rating: 4.9, img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800' },
+            { id: 3, price: '$1,200,000', type: 'For Sale', title: 'Luxury City Condo', beds: 2, baths: 2, sqft: '1,800', loc: 'Fifth Settlement', match: '89%', rating: 4.7, img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800' }
+        ];
+
+        const locationList = [
+            { name: 'القاهرة الجديدة', title: 'Smart Family Home', img: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800' },
+            { name: 'التجمع الخامس', title: 'Modern Penthouse', img: 'https://images.unsplash.com/photo-1536376074432-bf12406b43e3?auto=format&fit=crop&w=800' },
+            { name: 'مدينة الشروق', title: 'Luxury City Condo', img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800' }
+        ];
+
+        function createCard(p) {
+            return `
+            <div class="property-card bg-white rounded-[2.5rem] shadow-sm hover:shadow-2xl overflow-hidden border border-slate-100 transition-all duration-500 group cursor-pointer">
+                <div class="relative h-64 overflow-hidden">
+                    <img src="${p.img}" class="w-full h-full object-cover transition-transform duration-700">
+                    <span class="absolute top-5 right-5 bg-white/90 backdrop-blur px-4 py-1.5 rounded-xl text-xs font-black shadow-sm ${p.type === 'For Rent' ? 'text-blue-600' : 'text-green-600'}">${p.type}</span>
+                    <div class="absolute bottom-5 left-5 bg-white/95 backdrop-blur px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow-sm">
+                        <span class="text-yellow-400 text-sm">⭐</span> <span class="font-black text-xs">${p.rating}</span>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="text-2xl font-black text-purple-700">${p.price}</h4>
+                        <div class="bg-blue-50 text-blue-600 px-3 py-1 rounded-lg text-[10px] font-black tracking-widest uppercase">${p.match} AI Match</div>
+                    </div>
+                    <h3 class="font-black text-lg mb-3 text-slate-800">${p.title}</h3>
+                    <div class="flex items-center gap-4 text-slate-400 font-bold text-xs mb-6">
+                        <span>🛏️ ${p.beds} Beds</span>
+                        <span>🚿 ${p.baths} Baths</span>
+                        <span>📐 ${p.sqft} sqft</span>
+                    </div>
+                    <div class="pt-6 border-t border-slate-50 flex items-center justify-between text-slate-400 text-xs font-bold">
+                        <span class="flex items-center gap-1">📍 ${p.loc}</span>
+                        <button class="text-purple-600 font-black hover:underline transition">التفاصيل ←</button>
+                    </div>
+                </div>
+            </div>
+            `;
+        }
+
+        function renderGrids() {
+            const allGrid = document.getElementById('grid-all');
+            const visitedGrid = document.getElementById('grid-visited');
+            const locGrid = document.getElementById('grid-locations');
+
+            propertyList.forEach(p => {
+                allGrid.innerHTML += createCard(p);
+                visitedGrid.innerHTML += createCard({...p, match: (parseInt(p.match)-5)+'%'});
+            });
+
+            locationList.forEach(l => {
+                locGrid.innerHTML += `
+                <div class="relative overflow-hidden rounded-[2.5rem] h-80 group cursor-pointer shadow-lg border border-white">
+                    <img src="${l.img}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-8 flex flex-col justify-end text-white">
+                        <h4 class="text-2xl font-black mb-1">${l.name}</h4>
+                        <p class="text-white/70 font-bold mb-4">${l.title}</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs bg-lime-400 text-black px-3 py-1 rounded-lg font-black">92% AI Match</span>
+                            <span class="text-white/60 font-bold text-xs">Brooklyn, NY</span>
+                        </div>
+                    </div>
+                </div>
+                `;
+            });
+        }
+
+        // Chatbot UI
+        function toggleChat() {
+            const m = document.getElementById('ai-chat-modal');
+            m.classList.toggle('hidden');
+            m.classList.toggle('flex');
+        }
+
+        async function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const box = document.getElementById('chat-messages');
+            const txt = input.value.trim();
+            if (!txt) return;
+
+            box.innerHTML += `<div class="bg-purple-100 p-5 rounded-2xl shadow-sm self-end text-right ml-auto max-w-[85%] font-bold text-purple-900 animate-section">${txt}</div>`;
+            input.value = "";
+            box.scrollTop = box.scrollHeight;
+
+            const aiPlaceholder = document.createElement('div');
+            aiPlaceholder.className = "bg-white p-5 rounded-2xl shadow-sm border border-slate-100 max-w-[85%] italic text-slate-400 font-bold animate-pulse";
+            aiPlaceholder.innerText = "جاري التفكير...";
+            box.appendChild(aiPlaceholder);
+
+            const system = "أنت مساعد ذكي لمنصة 'العقار الذكي' في مصر. وظيفتك مساعدة المستخدمين في فهم سوق العقارات، أسعار المناطق، والنصائح القانونية. استخدم بحث جوجل للتحقق من المعلومات الحالية.";
+            const response = await callGemini(txt, system, true);
+
+            aiPlaceholder.classList.remove('animate-pulse', 'italic', 'text-slate-400');
+            aiPlaceholder.className = "bg-white p-5 rounded-2xl shadow-sm border border-slate-100 max-w-[85%] font-bold text-slate-700 animate-section";
+            aiPlaceholder.innerText = response;
+            box.scrollTop = box.scrollHeight;
+        }
+
+        window.onload = () => {
+            renderGrids();
+            showPage('landing');
+            document.getElementById('chat-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') sendChatMessage(); });
+        };
+    </script>
+</body>
+</html>
