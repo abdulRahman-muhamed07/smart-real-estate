@@ -66,31 +66,38 @@ const locationList = [
 
 function createCard(p) {
     return `
-    <div class="property-card bg-white rounded-3xl shadow-sm hover:shadow-2xl overflow-hidden border border-slate-100 transition-all duration-500 group cursor-pointer">
-        <div class="relative h-64 overflow-hidden">
-            <img src="${p.img}" class="w-full h-full object-cover transition-transform duration-700">
-            <span class="absolute top-5 right-5 bg-white/90 backdrop-blur px-4 py-1.5 rounded-xl text-xs font-black shadow-sm ${p.type === 'For Rent' ? 'text-blue-600' : 'text-emerald-600'}">${p.type === 'For Rent' ? 'للإيجار' : 'للبيع'}</span>
-            <div class="absolute bottom-5 left-5 bg-white/95 backdrop-blur px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow-sm">
-                <span class="text-amber-400 text-sm">⭐</span> <span class="font-black text-xs text-slate-800">${p.rating}</span>
+        <div class="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group border border-slate-100 animate-section">
+            <a href="details.html?id=${p.id}" class="block relative h-72 overflow-hidden">
+                <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                <div class="absolute top-6 right-6 flex gap-2">
+                    <span class="bg-white/90 backdrop-blur-md text-blue-700 px-4 py-1.5 rounded-full text-xs font-black shadow-sm">${p.type === 'For Sale' ? 'للبيع' : 'للإيجار'}</span>
+                    <span class="bg-emerald-500 text-white px-4 py-1.5 rounded-full text-xs font-black shadow-sm">${p.match} Match</span>
+                </div>
+            </a>
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h4 class="font-black text-xl mb-1 group-hover:text-blue-700 transition">${p.title}</h4>
+                        <p class="text-slate-400 text-xs font-bold">📍 ${p.loc}</p>
+                    </div>
+                    <div class="text-blue-700 font-black text-lg">${p.price}</div>
+                </div>
+                
+                <div class="flex gap-6 py-6 border-y border-slate-50 mb-6">
+                    <div class="flex items-center gap-2 text-slate-500 font-bold text-xs uppercase">🛏️ ${p.beds} Beds</div>
+                    <div class="flex items-center gap-2 text-slate-500 font-bold text-xs uppercase">🚿 ${p.baths} Baths</div>
+                    <div class="flex items-center gap-2 text-slate-500 font-bold text-xs uppercase">📏 ${p.sqft} m²</div>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-1">
+                        <span class="text-yellow-400">★</span>
+                        <span class="font-black text-sm">${p.rating}</span>
+                    </div>
+                    <a href="details.html?id=${p.id}" class="font-black text-blue-700 hover:gap-3 flex items-center gap-2 transition-all">التفاصيل <span>←</span></a>
+                </div>
             </div>
         </div>
-        <div class="p-8">
-            <div class="flex justify-between items-center mb-4">
-                <h4 class="text-2xl font-black text-blue-700">${p.price}</h4>
-                <div class="bg-blue-50 text-blue-600 px-3 py-1 rounded-lg text-[10px] font-black tracking-widest uppercase">${p.match} AI Match</div>
-            </div>
-            <h3 class="font-black text-lg mb-3 text-slate-800">${p.title}</h3>
-            <div class="flex items-center gap-4 text-slate-400 font-bold text-xs mb-6">
-                <span>🛏️ ${p.beds} غرف</span>
-                <span>🚿 ${p.baths} حمام</span>
-                <span>📐 ${p.sqft} متر</span>
-            </div>
-            <div class="pt-6 border-t border-slate-50 flex items-center justify-between text-slate-400 text-xs font-bold">
-                <span class="flex items-center gap-1">📍 ${p.loc}</span>
-                <a href="details.html" class="text-blue-700 font-black hover:underline transition">التفاصيل ←</a>
-            </div>
-        </div>
-    </div>
     `;
 }
 

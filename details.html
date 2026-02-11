@@ -45,30 +45,11 @@
 
     <main class="py-12 animate-section">
         <div class="container mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-16 items-start">
+            <div id="property-details-container" class="grid lg:grid-cols-2 gap-16 items-start">
                 <!-- Gallery Section -->
                 <div class="space-y-6">
                     <div class="rounded-[2.5rem] overflow-hidden shadow-2xl h-[500px]">
-                        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1200"
-                            class="w-full h-full object-cover">
-                    </div>
-                    <div class="grid grid-cols-4 gap-4">
-                        <div class="rounded-2xl overflow-hidden h-24 border-2 border-blue-600">
-                            <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=400"
-                                class="w-full h-full object-cover">
-                        </div>
-                        <div class="rounded-2xl overflow-hidden h-24 hover:opacity-80 cursor-pointer transition">
-                            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400"
-                                class="w-full h-full object-cover">
-                        </div>
-                        <div class="rounded-2xl overflow-hidden h-24 hover:opacity-80 cursor-pointer transition">
-                            <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=400"
-                                class="w-full h-full object-cover">
-                        </div>
-                        <div class="rounded-2xl overflow-hidden h-24 hover:opacity-80 cursor-pointer transition">
-                            <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=400"
-                                class="w-full h-full object-cover">
-                        </div>
+                        <img id="prop-img" src="" class="w-full h-full object-cover">
                     </div>
                 </div>
 
@@ -76,38 +57,40 @@
                 <div class="text-right">
                     <div class="flex justify-between items-start mb-6">
                         <div>
-                            <span
-                                class="bg-blue-100 text-blue-700 px-4 py-1.5 rounded-full text-sm font-black mb-4 inline-block tracking-widest">95%
-                                AI MATCH</span>
-                            <h1 class="text-5xl font-black mb-4">Luxury City Condo</h1>
-                            <p class="text-slate-500 font-bold mb-8 flex items-center justify-end gap-2">📍 Fifth
-                                Settlement, New Cairo, Egypt</p>
+                            <span id="prop-match"
+                                class="bg-blue-100 text-blue-700 px-4 py-1.5 rounded-full text-sm font-black mb-4 inline-block tracking-widest"></span>
+                            <h1 id="prop-title" class="text-5xl font-black mb-4"></h1>
+                            <p id="prop-loc" class="text-slate-500 font-bold mb-8 flex items-center justify-end gap-2">
+                            </p>
                         </div>
                         <div class="text-left">
-                            <span class="text-5xl font-black text-blue-700">$1,200,000</span>
+                            <span id="prop-price" class="text-5xl font-black text-blue-700"></span>
                         </div>
                     </div>
 
                     <div class="flex justify-end gap-12 py-8 border-y border-slate-100 mb-12">
                         <div class="text-center">
-                            <span class="block text-2xl font-black text-slate-800">4</span>
-                            <span class="text-slate-400 font-bold text-xs uppercase">Beds</span>
+                            <span id="prop-beds" class="block text-2xl font-black text-slate-800"></span>
+                            <span
+                                class="text-slate-400 font-bold text-xs uppercase text-center w-full block">Beds</span>
                         </div>
                         <div class="text-center">
-                            <span class="block text-2xl font-black text-slate-800">3</span>
-                            <span class="text-slate-400 font-bold text-xs uppercase">Baths</span>
+                            <span id="prop-baths" class="block text-2xl font-black text-slate-800"></span>
+                            <span
+                                class="text-slate-400 font-bold text-xs uppercase text-center w-full block">Baths</span>
                         </div>
                         <div class="text-center">
-                            <span class="block text-2xl font-black text-slate-800">2,800</span>
-                            <span class="text-slate-400 font-bold text-xs uppercase">Sqft</span>
+                            <span id="prop-sqft" class="block text-2xl font-black text-slate-800"></span>
+                            <span
+                                class="text-slate-400 font-bold text-xs uppercase text-center w-full block">Sqft</span>
                         </div>
                     </div>
 
                     <div class="mb-12">
                         <h3 class="text-2xl font-black mb-6">عن العقار</h3>
-                        <p class="text-slate-600 leading-relaxed font-bold text-lg">
-                            هذا العقار يمثل الفخامة الحقيقية في قلب القاهرة الجديدة. صمم بعناية فائقة ليوفر أقصى درجات
-                            الراحة والخصوصية. يتميز بإطلالات خلابة ومساحات واسعة وتجهيزات عالمية المستوى.
+                        <p id="prop-desc" class="text-slate-600 leading-relaxed font-bold text-lg">
+                            هذا العقار يمثل الفخامة الحقيقية في قلب المنطقة. صمم بعناية فائقة ليوفر أقصى درجات الراحة
+                            والخصوصية. يتميز بإطلالات خلابة ومساحات واسعة وتجهيزات عالمية المستوى.
                         </p>
                     </div>
 
@@ -122,6 +105,11 @@
                         </button>
                     </div>
                 </div>
+            </div>
+
+            <div id="not-found" class="hidden py-40 text-center">
+                <h2 class="text-4xl font-black mb-4">العقار غير موجود</h2>
+                <a href="home.html" class="text-blue-700 font-black underline">العودة للرئيسية</a>
             </div>
         </div>
     </main>
@@ -167,6 +155,41 @@
     </footer>
 
     <script src="assets/js/scripts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = parseInt(params.get('id'));
+
+            if (!id || typeof properties === 'undefined') {
+                showNotFound();
+                return;
+            }
+
+            const property = properties.find(p => p.id === id);
+
+            if (property) {
+                document.getElementById('prop-img').src = property.img;
+                document.getElementById('prop-match').innerText = property.match + ' AI MATCH';
+                document.getElementById('prop-title').innerText = property.title;
+                document.getElementById('prop-price').innerText = property.price;
+                document.getElementById('prop-loc').innerText = '📍 ' + property.loc;
+                document.getElementById('prop-beds').innerText = property.beds;
+                document.getElementById('prop-baths').innerText = property.baths;
+                document.getElementById('prop-sqft').innerText = property.sqft;
+                // Add description if available in object, otherwise use default
+                if (property.desc) {
+                    document.getElementById('prop-desc').innerText = property.desc;
+                }
+            } else {
+                showNotFound();
+            }
+
+            function showNotFound() {
+                document.getElementById('property-details-container').classList.add('hidden');
+                document.getElementById('not-found').classList.remove('hidden');
+            }
+        });
+    </script>
 </body>
 
 </html>
