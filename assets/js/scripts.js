@@ -58,15 +58,63 @@ const propertyList = [
 
 const properties = propertyList; // For compatibility with different pages
 
-const locationList = [
-    { name: 'القاهرة الجديدة', title: 'أفضل الوجهات للسكن', img: 'https://images.unsplash.com/photo-1582408921715-18e7806367c1?auto=format&fit=crop&w=800' },
-    { name: 'التجمع الخامس', title: 'إطلالات خلابة وحدائق', img: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800' },
-    { name: 'مدينة الشروق', title: 'هدوء وخصوصية تامة', img: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800' }
-];
+// --- Wishlist Logic ---
+let wishlist = JSON.parse(localStorage.getItem('property_wishlist')) || [];
+
+function toggleWishlist(id) {
+    const index = wishlist.indexOf(id);
+    if (index === -1) {
+        wishlist.push(id);
+    } else {
+        wishlist.splice(index, 1);
+    }
+    localStorage.setItem('property_wishlist', JSON.stringify(wishlist));
+    updateWishlistUI();
+}
+
+function updateWishlistUI() {
+    // Update all counters
+    const counters = document.querySelectorAll('.wishlist-counter');
+    counters.forEach(c => {
+        c.innerText = wishlist.length;
+        c.classList.toggle('hidden', wishlist.length === 0);
+    });
+
+    // Update all heart buttons
+    const buttons = document.querySelectorAll('.wishlist-btn');
+    buttons.forEach(btn => {
+        const id = parseInt(btn.dataset.id);
+        const icon = btn.querySelector('.heart-icon');
+        if (wishlist.includes(id)) {
+            icon.innerText = '❤️';
+            btn.classList.add('text-red-500');
+            btn.classList.remove('text-slate-400');
+        } else {
+            icon.innerText = '🤍';
+            btn.classList.add('text-slate-400');
+            btn.classList.remove('text-red-500');
+        }
+    });
+
+    // If we are on the wishlist page, we might need a re-render
+    if (window.location.pathname.includes('wishlist.html')) {
+        renderWishlist();
+    }
+}
+
+// Ensure UI is updated on load
+document.addEventListener('DOMContentLoaded', updateWishlistUI);
+// ----------------------
 
 function createCard(p) {
+    const isSaved = wishlist.includes(p.id);
     return `
-        <div class="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group border border-slate-100 animate-section">
+        <div class="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group border border-slate-100 animate-section relative">
+            <button onclick="event.preventDefault(); toggleWishlist(${p.id})" 
+                    class="wishlist-btn absolute top-6 left-6 z-10 w-12 h-12 bg-white/90 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-lg hover:scale-110 active:scale-90 transition-all cursor-pointer" 
+                    data-id="${p.id}">
+                <span class="heart-icon text-xl">${isSaved ? '❤️' : '🤍'}</span>
+            </button>
             <a href="details.html?id=${p.id}" class="block relative h-72 overflow-hidden">
                 <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                 <div class="absolute top-6 right-6 flex gap-2">
@@ -95,6 +143,26 @@ function createCard(p) {
                         <span class="font-black text-sm">${p.rating}</span>
                     </div>
                     <a href="details.html?id=${p.id}" class="font-black text-blue-700 hover:gap-3 flex items-center gap-2 transition-all">التفاصيل <span>←</span></a>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+const locationList = [
+    { name: 'القاهرة الجديدة', title: 'أفضل الوجهات للسكن', img: 'https://images.unsplash.com/photo-1582408921715-18e7806367c1?auto=format&fit=crop&w=800' },
+    { name: 'التجمع الخامس', title: 'إطلالات خلابة وحدائق', img: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800' },
+    { name: 'مدينة الشروق', title: 'هدوء وخصوصية تامة', img: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800' }
+];
+
+function createLocationCard(l) {
+    return `
+        <div class="group cursor-pointer">
+            <div class="relative overflow-hidden rounded-[2.5rem] h-80 mb-6 shadow-lg">
+                <img src="${l.img}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-8 text-white">
+                    <h4 class="font-black text-xl mb-1">${l.name}</h4>
+                    <p class="text-sm text-white/70">${l.title}</p>
                 </div>
             </div>
         </div>

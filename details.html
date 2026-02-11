@@ -33,7 +33,13 @@
                     <li><a href="#" class="hover:text-blue-600 cursor-pointer transition">من نحن</a></li>
                 </ul>
             </div>
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-6">
+                <!-- Wishlist Link -->
+                <a href="wishlist.html" class="relative group p-2 hover:bg-slate-50 rounded-xl transition-all">
+                    <span class="text-2xl group-hover:scale-110 inline-block transition">❤️</span>
+                    <span
+                        class="wishlist-counter absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white hidden">0</span>
+                </a>
                 <a href="login.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">تسجيل
                     دخول</a>
                 <button
@@ -103,6 +109,12 @@
                             class="px-10 border-2 border-blue-700 text-blue-700 font-black rounded-2xl hover:bg-blue-50 transition">
                             تواصل
                         </button>
+                        <button id="details-wishlist-btn"
+                            onclick="const params = new URLSearchParams(window.location.search); toggleWishlist(parseInt(params.get('id')));"
+                            class="wishlist-btn px-6 border-2 border-slate-200 text-slate-400 font-black rounded-2xl hover:bg-slate-50 transition flex items-center justify-center"
+                            data-id="">
+                            <span class="heart-icon text-2xl">🤍</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -168,6 +180,7 @@
             const property = properties.find(p => p.id === id);
 
             if (property) {
+                document.getElementById('details-wishlist-btn').dataset.id = property.id;
                 document.getElementById('prop-img').src = property.img;
                 document.getElementById('prop-match').innerText = property.match + ' AI MATCH';
                 document.getElementById('prop-title').innerText = property.title;
