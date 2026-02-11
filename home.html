@@ -17,82 +17,122 @@
     <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-[100]">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-12">
-                <a href="index.html" class="text-2xl font-black text-purple-700 flex items-center gap-2 cursor-pointer">
-                    <span class="bg-purple-600 text-white p-1 rounded-lg">🏠</span> العقار الذكي
+                <a href="index.html" class="text-2xl font-black text-blue-700 flex items-center gap-2 cursor-pointer">
+                    <span class="bg-blue-600 text-white p-1 rounded-lg">🏠</span> العقار الذكي
                 </a>
                 <ul class="hidden lg:flex gap-8 text-slate-600 font-bold text-sm">
-                    <li><a href="index.html" class="hover:text-purple-600 cursor-pointer transition">الرئيسية</a></li>
-                    <li class="text-purple-600 font-bold border-bottom-2 border-purple-600 cursor-pointer transition">
+                    <li><a href="index.html" class="hover:text-blue-600 cursor-pointer transition">الرئيسية</a></li>
+                    <li class="px-4 py-1.5 bg-blue-700 text-white rounded-full cursor-pointer transition">
                         شراء</li>
-                    <li class="hover:text-purple-600 cursor-pointer transition">بيع</li>
-                    <li class="hover:text-purple-600 cursor-pointer transition">إيجار</li>
-                    <li class="text-purple-600 flex items-center gap-1 cursor-pointer">بحث AI <span
-                            class="text-[10px] bg-purple-100 px-1 rounded">PRO</span></li>
-                    <li class="hover:text-purple-600 cursor-pointer transition">من نحن</li>
+                    <li class="hover:text-blue-600 cursor-pointer transition">بيع</li>
+                    <li class="hover:text-blue-600 cursor-pointer transition">إيجار</li>
+                    <li class="text-blue-600 flex items-center gap-1 cursor-pointer font-black">بحث AI <span
+                            class="text-[10px] bg-blue-100 px-1 rounded">PRO</span></li>
+                    <li class="hover:text-blue-600 cursor-pointer transition">من نحن</li>
                 </ul>
             </div>
             <div class="flex items-center gap-4">
-                <a href="login.html" class="px-5 py-2 text-slate-700 font-bold hover:text-purple-600 transition">تسجيل
+                <a href="login.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">تسجيل
                     دخول</a>
                 <button
-                    class="px-6 py-2.5 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700 shadow-lg shadow-purple-100 transition">ابدأ
+                    class="px-6 py-2.5 bg-blue-700 text-white rounded-xl font-bold hover:bg-blue-800 shadow-lg shadow-blue-100 transition">ابدأ
                     الآن</button>
             </div>
         </nav>
     </header>
 
     <main class="animate-section">
-        <div class="container mx-auto px-6 py-12">
-            <!-- Search / Filter Area -->
-            <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
+        <div class="container mx-auto px-6 py-12 flex flex-col md:flex-row gap-12">
+            <!-- Sidebar Filter (Figma Desktop 4) -->
+            <aside class="w-full md:w-64 space-y-8">
                 <div>
-                    <h2 class="text-4xl font-black text-slate-900 mb-2">اكتشف العقارات</h2>
-                    <p class="text-slate-500 font-bold">أفضل العروض المختارة لك بدقة الذكاء الاصطناعي</p>
+                    <h3 class="text-xl font-black mb-6">نوع العقار</h3>
+                    <ul class="space-y-4">
+                        <li>
+                            <button
+                                class="w-full text-right px-6 py-3 bg-blue-50 text-blue-700 rounded-2xl font-bold border border-blue-100">شقق
+                                سكنية</button>
+                        </li>
+                        <li>
+                            <button
+                                class="w-full text-right px-6 py-3 hover:bg-slate-50 text-slate-600 rounded-2xl font-bold transition">فيلات
+                                مستقلة</button>
+                        </li>
+                        <li>
+                            <button
+                                class="w-full text-right px-6 py-3 hover:bg-slate-50 text-slate-600 rounded-2xl font-bold transition">شاليهات</button>
+                        </li>
+                        <li>
+                            <button
+                                class="w-full text-right px-6 py-3 hover:bg-slate-50 text-slate-600 rounded-2xl font-bold transition">مكاتب
+                                إدارية</button>
+                        </li>
+                    </ul>
                 </div>
-                <div class="flex gap-3">
-                    <div class="relative">
-                        <input type="text" placeholder="ابحث بالمدينة أو الحي..."
-                            class="bg-white border border-slate-200 px-6 py-3.5 rounded-2xl w-80 shadow-sm focus:ring-2 focus:ring-purple-600 outline-none pr-12 text-right">
-                        <span class="absolute right-4 top-4 text-slate-400">🔍</span>
+                <div>
+                    <h3 class="text-xl font-black mb-6">نطاق السعر</h3>
+                    <div class="space-y-4">
+                        <input type="range" class="w-full accent-blue-600">
+                        <div class="flex justify-between text-xs font-bold text-slate-500">
+                            <span>0 ج.م</span>
+                            <span>10M+ ج.م</span>
+                        </div>
                     </div>
-                    <button
-                        class="bg-slate-900 text-white px-6 py-3.5 rounded-2xl font-bold flex items-center gap-2 shadow-lg">
-                        <span>تصفية</span>
-                        <span class="text-xs">▼</span>
-                    </button>
                 </div>
-            </div>
+            </aside>
 
-            <!-- Category 1: All Properties -->
-            <div class="mb-20">
-                <div class="flex justify-between items-center mb-8">
-                    <h3 class="text-2xl font-black text-slate-800">كل العقارات</h3>
-                    <button class="text-purple-600 font-bold flex items-center gap-1 hover:underline">عرض الكل
-                        <span>←</span></button>
+            <!-- Main Content Area -->
+            <div class="flex-1">
+                <!-- Search / Filter Area -->
+                <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
+                    <div>
+                        <h2 class="text-4xl font-black text-slate-900 mb-2">اكتشف العقارات</h2>
+                        <p class="text-slate-500 font-bold">أفضل العروض المختارة لك بدقة الذكاء الاصطناعي</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <div class="relative">
+                            <input type="text" placeholder="ابحث بالمدينة أو الحي..."
+                                class="bg-white border border-slate-200 px-6 py-3.5 rounded-2xl w-80 shadow-sm focus:ring-2 focus:ring-blue-600 outline-none pr-12 text-right">
+                            <span class="absolute right-4 top-4 text-slate-400">🔍</span>
+                        </div>
+                        <button
+                            class="bg-slate-900 text-white px-6 py-3.5 rounded-2xl font-bold flex items-center gap-2 shadow-lg">
+                            <span>تصفية</span>
+                            <span class="text-xs">▼</span>
+                        </button>
+                    </div>
                 </div>
-                <div id="grid-all" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
-            </div>
 
-            <!-- Category 2: Most Visited -->
-            <div class="mb-20">
-                <div class="flex justify-between items-center mb-8">
-                    <h3 class="text-2xl font-black text-slate-800">العقارات الأكثر زيارة</h3>
-                    <button class="text-purple-600 font-bold flex items-center gap-1 hover:underline">عرض الكل
-                        <span>←</span></button>
+                <!-- Category 1: All Properties -->
+                <div class="mb-20">
+                    <div class="flex justify-between items-center mb-8">
+                        <h3 class="text-2xl font-black text-slate-800">كل العقارات</h3>
+                        <button class="text-blue-600 font-bold flex items-center gap-1 hover:underline">عرض الكل
+                            <span>←</span></button>
+                    </div>
+                    <div id="grid-all" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
                 </div>
-                <div id="grid-visited" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
-            </div>
 
-            <!-- Category 3: Best Sellers -->
-            <div class="mb-20">
-                <div class="flex justify-between items-center mb-8">
-                    <h3 class="text-2xl font-black text-slate-800">الأماكن الأكثر مبيعاً</h3>
-                    <button class="text-purple-600 font-bold flex items-center gap-1 hover:underline">عرض الكل
-                        <span>←</span></button>
+                <!-- Category 2: Most Visited -->
+                <div class="mb-20">
+                    <div class="flex justify-between items-center mb-8">
+                        <h3 class="text-2xl font-black text-slate-800">العقارات الأكثر زيارة</h3>
+                        <button class="text-blue-600 font-bold flex items-center gap-1 hover:underline">عرض الكل
+                            <span>←</span></button>
+                    </div>
+                    <div id="grid-visited" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
                 </div>
-                <div id="grid-locations" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
+
+                <!-- Category 3: Best Sellers -->
+                <div class="mb-20">
+                    <div class="flex justify-between items-center mb-8">
+                        <h3 class="text-2xl font-black text-slate-800">الأماكن الأكثر مبيعاً</h3>
+                        <button class="text-blue-600 font-bold flex items-center gap-1 hover:underline">عرض الكل
+                            <span>←</span></button>
+                    </div>
+                    <div id="grid-locations" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
+                </div>
             </div>
-        </div>
     </main>
 
     <footer class="bg-slate-950 text-white pt-24 pb-12 mt-24">

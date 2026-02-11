@@ -3,6 +3,14 @@ const modelName = "gemini-2.5-flash-preview-09-2025";
 
 // Gemini API Wrapper
 async function callGemini(prompt, system = "", search = false) {
+    if (!apiKey) {
+        console.warn("No API Key provided. Using mock response for demonstration.");
+        await new Promise(r => setTimeout(r, 1500)); // Simulate delay
+        if (prompt.includes("أسعار")) {
+            return "بناءً على السوق الحالي في التجمع الخامس، تبدأ أسعار الشقق من 25,000 جنيه للمتر في المناطق المتوسطة، وتصل إلى 45,000 جنيه للمتر في الكمبوندات الفاخرة مثل مدينتي وسيتى جيت.";
+        }
+        return "هذا رد تجريبي (Mock Response) لأن مفتاح API غير مضبوط. بمجرد إضافة المفتاح، سأقوم بتحليل طلبك بدقة باستخدام Gemini AI.";
+    }
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
     const payload = {
         contents: [{ parts: [{ text: prompt }] }],
@@ -34,7 +42,7 @@ async function handleValuation() {
 
     const prompt = `أعطني تقييم سعري تقريبي بالجنيه المصري لعقار من نوع ${type} بمساحة ${area} متر مربع في منطقة راقية بالقاهرة. اذكر نطاق السعر و3 نقاط سريعة تبرر التقييم.`;
     const system = "أنت خبير تثمين عقاري مصري محترف. رد باللغة العربية بأسلوب جذاب ومختصر.";
-    
+
     const response = await callGemini(prompt, system);
     resDiv.innerHTML = `<strong>✨ التقرير المقترح:</strong><br>${response.replace(/\n/g, '<br>')}`;
 }
@@ -54,28 +62,28 @@ const locationList = [
 
 function createCard(p) {
     return `
-    <div class="property-card bg-white rounded-[2.5rem] shadow-sm hover:shadow-2xl overflow-hidden border border-slate-100 transition-all duration-500 group cursor-pointer">
+    <div class="property-card bg-white rounded-3xl shadow-sm hover:shadow-2xl overflow-hidden border border-slate-100 transition-all duration-500 group cursor-pointer">
         <div class="relative h-64 overflow-hidden">
             <img src="${p.img}" class="w-full h-full object-cover transition-transform duration-700">
-            <span class="absolute top-5 right-5 bg-white/90 backdrop-blur px-4 py-1.5 rounded-xl text-xs font-black shadow-sm ${p.type === 'For Rent' ? 'text-blue-600' : 'text-green-600'}">${p.type}</span>
+            <span class="absolute top-5 right-5 bg-white/90 backdrop-blur px-4 py-1.5 rounded-xl text-xs font-black shadow-sm ${p.type === 'For Rent' ? 'text-blue-600' : 'text-emerald-600'}">${p.type === 'For Rent' ? 'للإيجار' : 'للبيع'}</span>
             <div class="absolute bottom-5 left-5 bg-white/95 backdrop-blur px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow-sm">
-                <span class="text-yellow-400 text-sm">⭐</span> <span class="font-black text-xs">${p.rating}</span>
+                <span class="text-amber-400 text-sm">⭐</span> <span class="font-black text-xs text-slate-800">${p.rating}</span>
             </div>
         </div>
         <div class="p-8">
             <div class="flex justify-between items-center mb-4">
-                <h4 class="text-2xl font-black text-purple-700">${p.price}</h4>
+                <h4 class="text-2xl font-black text-blue-700">${p.price}</h4>
                 <div class="bg-blue-50 text-blue-600 px-3 py-1 rounded-lg text-[10px] font-black tracking-widest uppercase">${p.match} AI Match</div>
             </div>
             <h3 class="font-black text-lg mb-3 text-slate-800">${p.title}</h3>
             <div class="flex items-center gap-4 text-slate-400 font-bold text-xs mb-6">
-                <span>🛏️ ${p.beds} Beds</span>
-                <span>🚿 ${p.baths} Baths</span>
-                <span>📐 ${p.sqft} sqft</span>
+                <span>🛏️ ${p.beds} غرف</span>
+                <span>🚿 ${p.baths} حمام</span>
+                <span>📐 ${p.sqft} متر</span>
             </div>
             <div class="pt-6 border-t border-slate-50 flex items-center justify-between text-slate-400 text-xs font-bold">
                 <span class="flex items-center gap-1">📍 ${p.loc}</span>
-                <button class="text-purple-600 font-black hover:underline transition">التفاصيل ←</button>
+                <button class="text-blue-700 font-black hover:underline transition">التفاصيل ←</button>
             </div>
         </div>
     </div>
@@ -90,7 +98,7 @@ function renderGrids() {
     if (allGrid && visitedGrid) {
         propertyList.forEach(p => {
             allGrid.innerHTML += createCard(p);
-            visitedGrid.innerHTML += createCard({...p, match: (parseInt(p.match)-5)+'%'});
+            visitedGrid.innerHTML += createCard({ ...p, match: (parseInt(p.match) - 5) + '%' });
         });
     }
 
@@ -129,7 +137,7 @@ async function sendChatMessage() {
     const txt = input.value.trim();
     if (!txt) return;
 
-    box.innerHTML += `<div class="bg-purple-100 p-5 rounded-2xl shadow-sm self-end text-right ml-auto max-w-[85%] font-bold text-purple-900 animate-section">${txt}</div>`;
+    box.innerHTML += `<div class="bg-blue-100 p-5 rounded-2xl shadow-sm self-end text-right ml-auto max-w-[85%] font-bold text-blue-900 animate-section">${txt}</div>`;
     input.value = "";
     box.scrollTop = box.scrollHeight;
 

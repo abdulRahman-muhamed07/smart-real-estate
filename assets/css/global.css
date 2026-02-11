@@ -1,6 +1,11 @@
 :root {
-    --brand-purple: #6D28D9;
-    --brand-lime: #D9F99D;
+    --brand-blue: #1D4ED8;
+    --brand-blue-hover: #1E40AF;
+    --brand-emerald: #10B981;
+    --brand-amber: #F59E0B;
+    --bg-main: #F9FAFB;
+    --text-dark: #111827;
+    --text-muted: #4B5563;
 }
 
 body { 

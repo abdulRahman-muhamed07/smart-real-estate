@@ -17,25 +17,25 @@
     <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-[100]">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-12">
-                <a href="index.html" class="text-2xl font-black text-purple-700 flex items-center gap-2 cursor-pointer">
-                    <span class="bg-purple-600 text-white p-1 rounded-lg">🏠</span> العقار الذكي
+                <a href="index.html" class="text-2xl font-black text-blue-700 flex items-center gap-2 cursor-pointer">
+                    <span class="bg-blue-600 text-white p-1 rounded-lg">🏠</span> العقار الذكي
                 </a>
                 <ul class="hidden lg:flex gap-8 text-slate-600 font-bold text-sm">
-                    <li class="text-purple-600 font-bold border-bottom-2 border-purple-600 cursor-pointer transition">
+                    <li class="px-4 py-2 bg-blue-700 text-white rounded-full cursor-pointer transition">
                         الرئيسية</li>
-                    <li><a href="home.html" class="hover:text-purple-600 cursor-pointer transition">شراء</a></li>
-                    <li class="hover:text-purple-600 cursor-pointer transition">بيع</li>
-                    <li class="hover:text-purple-600 cursor-pointer transition">إيجار</li>
-                    <li><a href="home.html" class="text-purple-600 flex items-center gap-1 cursor-pointer">بحث AI <span
-                                class="text-[10px] bg-purple-100 px-1 rounded">PRO</span></a></li>
-                    <li class="hover:text-purple-600 cursor-pointer transition">من نحن</li>
+                    <li><a href="home.html" class="hover:text-blue-600 cursor-pointer transition">شراء</a></li>
+                    <li class="hover:text-blue-600 cursor-pointer transition">بيع</li>
+                    <li class="hover:text-blue-600 cursor-pointer transition">إيجار</li>
+                    <li><a href="home.html" class="text-blue-600 flex items-center gap-1 cursor-pointer">بحث AI <span
+                                class="text-[10px] bg-blue-100 px-1 rounded">PRO</span></a></li>
+                    <li class="hover:text-blue-600 cursor-pointer transition">من نحن</li>
                 </ul>
             </div>
             <div class="flex items-center gap-4">
-                <a href="login.html" class="px-5 py-2 text-slate-700 font-bold hover:text-purple-600 transition">تسجيل
+                <a href="login.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">تسجيل
                     دخول</a>
                 <a href="home.html"
-                    class="px-6 py-2.5 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700 shadow-lg shadow-purple-100 transition">ابدأ
+                    class="px-6 py-2.5 bg-blue-700 text-white rounded-xl font-bold hover:bg-blue-800 shadow-lg shadow-blue-100 transition">ابدأ
                     الآن</a>
             </div>
         </nav>
@@ -47,17 +47,17 @@
             <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                     <h1 class="text-5xl lg:text-7xl font-black leading-[1.15] mb-8">
-                        اكتشف سعر عقارك مع <br><span class="text-purple-600">الذكاء الاصطناعي</span>
+                        اكتشف سعر عقارك مع <br><span class="text-blue-700">الذكاء الاصطناعي</span>
                     </h1>
                     <p class="text-slate-500 text-xl mb-10 leading-relaxed max-w-lg">
                         أدخل مواصفات العقار واحصل على تقييم دقيق للسعر باستخدام تقنيات الذكاء الاصطناعي المتطورة.
                     </p>
                     <div class="flex flex-wrap gap-4">
                         <a href="home.html"
-                            class="bg-purple-600 text-white px-10 py-4 rounded-2xl font-black shadow-xl hover:shadow-purple-200 transition-all hover:-translate-y-1">تصفح
+                            class="bg-blue-700 text-white px-10 py-4 rounded-2xl font-black shadow-xl hover:shadow-blue-200 transition-all hover:-translate-y-1">تصفح
                             العقارات</a>
                         <button onclick="document.getElementById('valuation-card').scrollIntoView()"
-                            class="border-2 border-purple-600 text-purple-600 px-10 py-4 rounded-2xl font-black hover:bg-purple-50 transition-all">ابدأ
+                            class="border-2 border-blue-700 text-blue-700 px-10 py-4 rounded-2xl font-black hover:bg-blue-50 transition-all">ابدأ
                             التقييم الآن</button>
                     </div>
                 </div>
@@ -78,10 +78,10 @@
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2 mr-1">المساحة (متر مربع)</label>
                             <input id="val-area" type="number" placeholder="مثال: 200"
-                                class="w-full p-4 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-purple-500 outline-none transition font-bold text-right">
+                                class="w-full p-4 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none transition font-bold text-right">
                         </div>
                         <button onclick="handleValuation()"
-                            class="w-full bg-lime-400 hover:bg-lime-500 text-black font-black py-5 rounded-2xl mt-4 shadow-lg active:scale-95 transition-all text-lg">
+                            class="w-full bg-blue-700 hover:bg-blue-800 text-white font-black py-5 rounded-2xl mt-4 shadow-lg active:scale-95 transition-all text-lg">
                             تقييم سريع بواسطة AI
                         </button>
                         <div id="val-result"
@@ -100,7 +100,7 @@
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all">
                         <div
-                            class="w-16 h-16 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-3xl mb-6 mx-auto">
+                            class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-3xl mb-6 mx-auto">
                             🚀</div>
                         <h4 class="font-black text-xl mb-4">تحليل السوق الفوري</h4>
                         <p class="text-slate-500 text-sm leading-relaxed">متابعة مستمرة لأسعار السوق والاتجاهات الحديثة
@@ -108,7 +108,7 @@
                     </div>
                     <div class="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all">
                         <div
-                            class="w-16 h-16 bg-lime-100 text-lime-700 rounded-2xl flex items-center justify-center text-3xl mb-6 mx-auto">
+                            class="w-16 h-16 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center text-3xl mb-6 mx-auto">
                             🛡️</div>
                         <h4 class="font-black text-xl mb-4">موثوقية عالية</h4>
                         <p class="text-slate-500 text-sm leading-relaxed">دقة تصل إلى 95% في التقييمات مع ضمان الشفافية
@@ -142,7 +142,7 @@
                                 class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-8 text-white">
                                 <h4 class="font-black text-xl mb-2">تقييم بالذكاء الاصطناعي</h4>
                                 <p class="text-sm text-white/80 mb-4">احصل على تقييم فوري ودقيق لعقارك خلال ثوانٍ.</p>
-                                <button class="text-lime-400 font-bold flex items-center gap-2">تعرف أكثر
+                                <button class="text-emerald-400 font-bold flex items-center gap-2">تعرف أكثر
                                     <span>←</span></button>
                             </div>
                         </div>
@@ -156,7 +156,7 @@
                                 <h4 class="font-black text-xl mb-2">بيع عقار</h4>
                                 <p class="text-sm text-white/80 mb-4">اعرض عقارك بالسعر الأمثل باستخدام تحليل السوق
                                     الذكي.</p>
-                                <button class="text-lime-400 font-bold flex items-center gap-2">ابدأ البيع
+                                <button class="text-emerald-400 font-bold flex items-center gap-2">ابدأ البيع
                                     <span>←</span></button>
                             </div>
                         </div>
@@ -170,7 +170,8 @@
                                 <h4 class="font-black text-xl mb-2">شراء عقار</h4>
                                 <p class="text-sm text-white/80 mb-4">ابحث واقتنِ العقار المناسب مع تقييم AI دقيق
                                     للأسعار.</p>
-                                <a href="home.html" class="text-lime-400 font-bold flex items-center gap-2">ابدأ البحث
+                                <a href="home.html" class="text-emerald-400 font-bold flex items-center gap-2">ابدأ
+                                    البحث
                                     <span>←</span></a>
                             </div>
                         </div>
@@ -180,13 +181,13 @@
         </section>
 
         <!-- How it works -->
-        <section class="py-24 bg-purple-700 text-white overflow-hidden relative">
+        <section class="py-24 bg-blue-700 text-white overflow-hidden relative">
             <div class="container mx-auto px-6 relative z-10">
                 <h2 class="text-4xl font-black mb-16 text-center">كيف يعمل النظام؟</h2>
                 <div class="grid md:grid-cols-4 gap-8">
                     <div class="text-center group">
                         <div
-                            class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center text-3xl font-black mb-6 mx-auto border border-white/20 group-hover:bg-lime-400 group-hover:text-black transition-all">
+                            class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center text-3xl font-black mb-6 mx-auto border border-white/20 group-hover:bg-emerald-400 group-hover:text-black transition-all">
                             1</div>
                         <h4 class="font-black text-lg mb-2">ادخل المواصفات</h4>
                         <p class="text-white/60 text-sm">اكتب تفاصيل العقار مثل المساحة والموقع والمميزات.</p>
@@ -203,7 +204,7 @@
                 <p class="text-white/60 text-xl mb-12">احصل على تقييم مجاني لعقارك واكتشف قيمته الحقيقية</p>
                 <div class="flex flex-wrap justify-center gap-4">
                     <a href="signup.html"
-                        class="bg-lime-400 text-black px-10 py-4 rounded-2xl font-black shadow-lg hover:bg-lime-500 transition">ابدأ
+                        class="bg-emerald-400 text-black px-10 py-4 rounded-2xl font-black shadow-lg hover:bg-emerald-500 transition">ابدأ
                         التقييم المجاني</a>
                     <button
                         class="border-2 border-white/20 text-white px-10 py-4 rounded-2xl font-black hover:bg-white/10 transition">تواصل
@@ -217,7 +218,7 @@
         <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
             <div>
                 <a href="index.html" class="text-3xl font-black mb-8 flex items-center gap-2 cursor-pointer">
-                    <span class="bg-purple-600 text-white p-1 rounded-lg">🏠</span> العقار الذكي
+                    <span class="bg-blue-600 text-white p-1 rounded-lg">🏠</span> العقار الذكي
                 </a>
                 <p class="text-slate-400 leading-relaxed font-medium">The future of real estate powered by artificial
                     intelligence.</p>
@@ -233,7 +234,7 @@
     <!-- AI Chatbot -->
     <div id="chat-container" class="fixed bottom-8 left-8 z-[200]">
         <button onclick="toggleChat()"
-            class="w-18 h-18 bg-purple-600 hover:bg-purple-700 text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-90 group relative">
+            class="w-18 h-18 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-90 group relative">
             <span class="text-3xl">✨</span>
         </button>
     </div>
@@ -242,7 +243,7 @@
     <div id="ai-chat-modal"
         class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[300] hidden items-center justify-center p-4">
         <div class="bg-white w-full max-w-xl rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden h-[80vh]">
-            <div class="bg-purple-600 p-8 text-white flex justify-between items-center">
+            <div class="bg-blue-600 p-8 text-white flex justify-between items-center">
                 <div class="flex items-center gap-4">
                     <span class="text-3xl">🤖</span>
                     <div>
@@ -256,7 +257,7 @@
                 <input id="chat-input" type="text" placeholder="اكتب سؤالك هنا..."
                     class="flex-1 p-5 border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-purple-600 transition font-bold">
                 <button onclick="sendChatMessage()"
-                    class="bg-purple-600 text-white p-5 rounded-2xl hover:bg-purple-700 transition active:scale-95 shadow-lg">إرسال</button>
+                    class="bg-blue-600 text-white p-5 rounded-2xl hover:bg-blue-700 transition active:scale-95 shadow-lg">إرسال</button>
             </div>
         </div>
     </div>
