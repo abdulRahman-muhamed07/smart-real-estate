@@ -50,7 +50,7 @@ async function handleValuation() {
 // Property Rendering Data
 const propertyList = [
     { id: 1, price: '32,000 ج.م/شهر', type: 'For Rent', title: 'شقة فاخرة للإيجار', beds: 4, baths: 3, sqft: '280', loc: 'التجمع الخامس، القاهرة', match: '92%', rating: 4.8, img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800' },
-    { id: 2, price: '8,500,000 ج.م', type: 'For Sale', title: 'بنتهاوس عصري', beds: 3, baths: 2, sqft: '210', loc: 'الشيخ زايد، الجيزة', match: '95%', rating: 4.9, img: 'https://images.unsplash.com/photo-1600585154340-be6199f7d009?auto=format&fit=crop&w=800' },
+    { id: 2, price: '8,500,000 ج.م', type: 'For Sale', title: 'بنتهاوس عصري', beds: 3, baths: 2, sqft: '210', loc: 'الشيخ زايد، الجيزة', match: '95%', rating: 4.9, img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800' },
     { id: 3, price: '12,000,000 ج.م', type: 'For Sale', title: 'فيلا مستقلة بحديقة', beds: 4, baths: 3, sqft: '350', loc: 'مدينتي، القاهرة', match: '89%', rating: 4.7, img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800' },
     { id: 4, price: '15,000 ج.م/شهر', type: 'For Rent', title: 'شقة استوديو أنيقة', beds: 1, baths: 1, sqft: '90', loc: 'المعادي، القاهرة', match: '88%', rating: 4.5, img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800' },
     { id: 5, price: '2,500,000 ج.م', type: 'For Sale', title: 'شقة سكنية ممتازة', beds: 3, baths: 2, sqft: '160', loc: 'مدينة نصر، القاهرة', match: '91%', rating: 4.6, img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800' }
