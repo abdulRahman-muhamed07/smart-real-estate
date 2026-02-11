@@ -49,15 +49,19 @@ async function handleValuation() {
 
 // Property Rendering Data
 const propertyList = [
-    { id: 1, price: '$3,200/mo', type: 'For Rent', title: 'Smart Family Home', beds: 4, baths: 3, sqft: '2,800', loc: 'Cairo, Egypt', match: '92%', rating: 4.8, img: 'https://images.unsplash.com/photo-1600585154340-be6199f7d009?auto=format&fit=crop&w=800' },
-    { id: 2, price: '$850,000', type: 'For Sale', title: 'Modern Penthouse', beds: 3, baths: 2, sqft: '2,100', loc: 'Zayed, Egypt', match: '95%', rating: 4.9, img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800' },
-    { id: 3, price: '$1,200,000', type: 'For Sale', title: 'Luxury City Condo', beds: 2, baths: 2, sqft: '1,800', loc: 'Fifth Settlement', match: '89%', rating: 4.7, img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800' }
+    { id: 1, price: '32,000 ج.م/شهر', type: 'For Rent', title: 'شقة فاخرة للإيجار', beds: 4, baths: 3, sqft: '280', loc: 'التجمع الخامس، القاهرة', match: '92%', rating: 4.8, img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800' },
+    { id: 2, price: '8,500,000 ج.م', type: 'For Sale', title: 'بنتهاوس عصري', beds: 3, baths: 2, sqft: '210', loc: 'الشيخ زايد، الجيزة', match: '95%', rating: 4.9, img: 'https://images.unsplash.com/photo-1600585154340-be6199f7d009?auto=format&fit=crop&w=800' },
+    { id: 3, price: '12,000,000 ج.م', type: 'For Sale', title: 'فيلا مستقلة بحديقة', beds: 4, baths: 3, sqft: '350', loc: 'مدينتي، القاهرة', match: '89%', rating: 4.7, img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800' },
+    { id: 4, price: '15,000 ج.م/شهر', type: 'For Rent', title: 'شقة استوديو أنيقة', beds: 1, baths: 1, sqft: '90', loc: 'المعادي، القاهرة', match: '88%', rating: 4.5, img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800' },
+    { id: 5, price: '2,500,000 ج.م', type: 'For Sale', title: 'شقة سكنية ممتازة', beds: 3, baths: 2, sqft: '160', loc: 'مدينة نصر، القاهرة', match: '91%', rating: 4.6, img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800' }
 ];
 
+const properties = propertyList; // For compatibility with different pages
+
 const locationList = [
-    { name: 'القاهرة الجديدة', title: 'Smart Family Home', img: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800' },
-    { name: 'التجمع الخامس', title: 'Modern Penthouse', img: 'https://images.unsplash.com/photo-1536376074432-bf12406b43e3?auto=format&fit=crop&w=800' },
-    { name: 'مدينة الشروق', title: 'Luxury City Condo', img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800' }
+    { name: 'القاهرة الجديدة', title: 'أفضل الوجهات للسكن', img: 'https://images.unsplash.com/photo-1582408921715-18e7806367c1?auto=format&fit=crop&w=800' },
+    { name: 'التجمع الخامس', title: 'إطلالات خلابة وحدائق', img: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800' },
+    { name: 'مدينة الشروق', title: 'هدوء وخصوصية تامة', img: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800' }
 ];
 
 function createCard(p) {

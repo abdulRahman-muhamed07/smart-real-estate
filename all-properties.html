@@ -22,9 +22,10 @@
                 </a>
                 <ul class="hidden lg:flex gap-8 text-slate-600 font-bold text-sm">
                     <li><a href="index.html" class="hover:text-blue-600 cursor-pointer transition">الرئيسية</a></li>
-                    <li class="px-4 py-1.5 bg-blue-700 text-white rounded-full cursor-pointer transition">شراء</li>
+                    <li><a href="all-properties.html?type=sale"
+                            class="hover:text-blue-600 cursor-pointer transition">شراء</a></li>
                     <li><a href="sell.html" class="hover:text-blue-600 cursor-pointer transition">بيع</a></li>
-                    <li><a href="all-properties.html"
+                    <li><a href="all-properties.html?type=rent"
                             class="hover:text-blue-600 cursor-pointer transition active">إيجار</a></li>
                     <li class="text-blue-600 flex items-center gap-1 cursor-pointer font-black"><a
                             href="evaluate.html">بحث AI</a> <span
@@ -169,11 +170,29 @@
 
     <script src="assets/js/scripts.js"></script>
     <script>
-        // Trigger manual render for this page since it has a specific grid ID
+        // Enhanced render logic with filtering
         document.addEventListener('DOMContentLoaded', () => {
             const grid = document.getElementById('grid-all-properties');
+            const pageTitle = document.querySelector('h2.text-3xl.font-black');
+
             if (grid && typeof properties !== 'undefined') {
-                grid.innerHTML = properties.map(p => createCard(p)).join('');
+                const params = new URLSearchParams(window.location.search);
+                const typeFilter = params.get('type'); // 'sale' or 'rent'
+
+                let filtered = properties;
+                if (typeFilter === 'rent') {
+                    filtered = properties.filter(p => p.type === 'For Rent');
+                    if (pageTitle) pageTitle.innerText = 'عقارات للإيجار';
+                } else if (typeFilter === 'sale') {
+                    filtered = properties.filter(p => p.type === 'For Sale');
+                    if (pageTitle) pageTitle.innerText = 'عقارات للبيع';
+                }
+
+                grid.innerHTML = filtered.map(p => createCard(p)).join('');
+
+                if (filtered.length === 0) {
+                    grid.innerHTML = `<div class="col-span-full py-20 text-center font-bold text-slate-400">لا توجد نتائج تطابق بحثك حالياً.</div>`;
+                }
             }
         });
     </script>
