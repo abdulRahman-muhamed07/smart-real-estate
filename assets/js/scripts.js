@@ -49,14 +49,39 @@ async function handleValuation() {
 
 // Property Rendering Data
 const propertyList = [
-    { id: 1, price: '32,000 ج.م/شهر', type: 'For Rent', title: 'شقة فاخرة للإيجار', beds: 4, baths: 3, sqft: '280', loc: 'التجمع الخامس، القاهرة', match: '92%', rating: 4.8, img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800' },
-    { id: 2, price: '8,500,000 ج.م', type: 'For Sale', title: 'بنتهاوس عصري', beds: 3, baths: 2, sqft: '210', loc: 'الشيخ زايد، الجيزة', match: '95%', rating: 4.9, img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800' },
-    { id: 3, price: '12,000,000 ج.م', type: 'For Sale', title: 'فيلا مستقلة بحديقة', beds: 4, baths: 3, sqft: '350', loc: 'مدينتي، القاهرة', match: '89%', rating: 4.7, img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800' },
-    { id: 4, price: '15,000 ج.م/شهر', type: 'For Rent', title: 'شقة استوديو أنيقة', beds: 1, baths: 1, sqft: '90', loc: 'المعادي، القاهرة', match: '88%', rating: 4.5, img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800' },
-    { id: 5, price: '2,500,000 ج.م', type: 'For Sale', title: 'شقة سكنية ممتازة', beds: 3, baths: 2, sqft: '160', loc: 'مدينة نصر، القاهرة', match: '91%', rating: 4.6, img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800' }
+    { id: 1, price: '32,000 ج.م/شهر', type: 'For Rent', category: 'apartment', title: 'شقة فاخرة للإيجار', beds: 4, baths: 3, sqft: '280', loc: 'التجمع الخامس، القاهرة', match: '92%', rating: 4.8, img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800' },
+    { id: 2, price: '8,500,000 ج.م', type: 'For Sale', category: 'penthouse', title: 'بنتهاوس عصري', beds: 3, baths: 2, sqft: '210', loc: 'الشيخ زايد، الجيزة', match: '95%', rating: 4.9, img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800' },
+    { id: 3, price: '12,000,000 ج.م', type: 'For Sale', category: 'villa', title: 'فيلا مستقلة بحديقة', beds: 4, baths: 3, sqft: '350', loc: 'مدينتي، القاهرة', match: '89%', rating: 4.7, img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800' },
+    { id: 4, price: '15,000 ج.م/شهر', type: 'For Rent', category: 'apartment', title: 'شقة استوديو أنيقة', beds: 1, baths: 1, sqft: '90', loc: 'المعادي، القاهرة', match: '88%', rating: 4.5, img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800' },
+    { id: 5, price: '2,500,000 ج.م', type: 'For Sale', category: 'apartment', title: 'شقة سكنية ممتازة', beds: 3, baths: 2, sqft: '160', loc: 'مدينة نصر، القاهرة', match: '91%', rating: 4.6, img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800' },
+    { id: 6, price: '25,000,000 ج.م', type: 'For Sale', category: 'villa', title: 'فيلا فاخرة صف أول', beds: 5, baths: 5, sqft: '450', loc: 'الساحل الشمالي، مصر', match: '98%', rating: 5.0, img: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800' },
+    { id: 7, price: '45,000 ج.م/شهر', type: 'For Rent', category: 'villa', title: 'تاون هاوس للإيجار', beds: 3, baths: 3, sqft: '220', loc: 'القاهرة الجديدة', match: '93%', rating: 4.8, img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800' },
+    { id: 8, price: '5,500,000 ج.م', type: 'For Sale', category: 'chalet', title: 'شاليه بفيو بحر', beds: 2, baths: 2, sqft: '120', loc: 'عين سخنة، مصر', match: '96%', rating: 4.9, img: 'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&w=800' },
+    { id: 9, price: '18,500,000 ج.م', type: 'For Sale', category: 'villa', title: 'فيلا مودرن El Gouna', beds: 4, baths: 4, sqft: '300', loc: 'الجونة، الغردقة', match: '94%', rating: 4.9, img: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=800' },
+    { id: 10, price: '9,500 ج.م/شهر', type: 'For Rent', category: 'apartment', title: 'استوديو بموقع مميز', beds: 1, baths: 1, sqft: '75', loc: '6 أكتوبر، الجيزة', match: '87%', rating: 4.4, img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800' },
+    { id: 11, price: '7,200,000 ج.م', type: 'For Sale', category: 'apartment', title: 'دوبلكس بحديقة خاصة', beds: 4, baths: 3, sqft: '250', loc: 'العاصمة الإدارية', match: '90%', rating: 4.7, img: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=800' },
+    { id: 12, price: '2,800,000 ج.م', type: 'For Sale', category: 'chalet', title: 'شاليه استلام فوري', beds: 2, baths: 1, sqft: '100', loc: 'الساحل الشمالي', match: '85%', rating: 4.3, img: 'https://images.unsplash.com/photo-1520608421441-67c7ad29ba14?auto=format&fit=crop&w=800' }
 ];
 
 const properties = propertyList; // For compatibility with different pages
+
+// Sorting Helper
+function getPriceValue(priceStr) {
+    return parseInt(priceStr.replace(/[^0-9]/g, '')) || 0;
+}
+
+function sortProperties(list, criteria) {
+    const sorted = [...list];
+    switch (criteria) {
+        case 'price-low':
+            return sorted.sort((a, b) => getPriceValue(a.price) - getPriceValue(b.price));
+        case 'price-high':
+            return sorted.sort((a, b) => getPriceValue(b.price) - getPriceValue(a.price));
+        case 'newest':
+        default:
+            return sorted.sort((a, b) => b.id - a.id);
+    }
+}
 
 // --- Wishlist Logic ---
 let wishlist = JSON.parse(localStorage.getItem('property_wishlist')) || [];

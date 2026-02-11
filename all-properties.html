@@ -61,17 +61,20 @@
                             <div class="space-y-2">
                                 <label
                                     class="flex items-center gap-3 cursor-pointer p-2 hover:bg-white rounded-xl transition">
-                                    <input type="checkbox" class="w-5 h-5 accent-blue-600" checked>
+                                    <input type="checkbox" class="category-filter w-5 h-5 accent-blue-600"
+                                        value="apartment" checked onchange="renderFiltered()">
                                     <span class="font-bold text-sm text-slate-700">شقق سكنية</span>
                                 </label>
                                 <label
                                     class="flex items-center gap-3 cursor-pointer p-2 hover:bg-white rounded-xl transition">
-                                    <input type="checkbox" class="w-5 h-5 accent-blue-600">
+                                    <input type="checkbox" class="category-filter w-5 h-5 accent-blue-600" value="villa"
+                                        checked onchange="renderFiltered()">
                                     <span class="font-bold text-sm text-slate-700">فيلات فاخرة</span>
                                 </label>
                                 <label
                                     class="flex items-center gap-3 cursor-pointer p-2 hover:bg-white rounded-xl transition">
-                                    <input type="checkbox" class="w-5 h-5 accent-blue-600" checked>
+                                    <input type="checkbox" class="category-filter w-5 h-5 accent-blue-600"
+                                        value="chalet" checked onchange="renderFiltered()">
                                     <span class="font-bold text-sm text-slate-700">شاليهات</span>
                                 </label>
                             </div>
@@ -107,10 +110,12 @@
                     <h2 class="text-3xl font-black">جميع العقارات المتاحة</h2>
                     <div class="flex gap-2">
                         <span class="text-slate-400 font-bold">ترتيب حسب:</span>
-                        <select class="bg-transparent font-black text-blue-700 outline-none cursor-pointer">
-                            <option>الأحدث أولاً</option>
-                            <option>السعر: من الأقل</option>
-                            <option>السعر: من الأعلى</option>
+                        <select id="sort-order"
+                            class="bg-transparent font-black text-blue-700 outline-none cursor-pointer"
+                            onchange="renderFiltered()">
+                            <option value="newest">الأحدث أولاً</option>
+                            <option value="price-low">السعر: من الأقل</option>
+                            <option value="price-high">السعر: من الأعلى</option>
                         </select>
                     </div>
                 </div>
@@ -178,31 +183,47 @@
 
     <script src="assets/js/scripts.js"></script>
     <script>
-        // Enhanced render logic with filtering
-        document.addEventListener('DOMContentLoaded', () => {
+        function renderFiltered() {
             const grid = document.getElementById('grid-all-properties');
             const pageTitle = document.querySelector('h2.text-3xl.font-black');
+            const sortOrder = document.getElementById('sort-order').value;
+
+            // Get selected categories
+            const selectedCats = Array.from(document.querySelectorAll('.category-filter:checked')).map(cb => cb.value);
 
             if (grid && typeof properties !== 'undefined') {
                 const params = new URLSearchParams(window.location.search);
                 const typeFilter = params.get('type'); // 'sale' or 'rent'
 
-                let filtered = properties;
+                let filtered = [...properties];
+
+                // 1. Initial Type Filter (from URL)
                 if (typeFilter === 'rent') {
-                    filtered = properties.filter(p => p.type === 'For Rent');
+                    filtered = filtered.filter(p => p.type === 'For Rent');
                     if (pageTitle) pageTitle.innerText = 'عقارات للإيجار';
                 } else if (typeFilter === 'sale') {
-                    filtered = properties.filter(p => p.type === 'For Sale');
+                    filtered = filtered.filter(p => p.type === 'For Sale');
                     if (pageTitle) pageTitle.innerText = 'عقارات للبيع';
                 }
 
+                // 2. Category Filter
+                if (selectedCats.length > 0) {
+                    filtered = filtered.filter(p => selectedCats.includes(p.category));
+                }
+
+                // 3. Sorting
+                filtered = sortProperties(filtered, sortOrder);
+
+                // 4. Render
                 grid.innerHTML = filtered.map(p => createCard(p)).join('');
 
                 if (filtered.length === 0) {
                     grid.innerHTML = `<div class="col-span-full py-20 text-center font-bold text-slate-400">لا توجد نتائج تطابق بحثك حالياً.</div>`;
                 }
             }
-        });
+        }
+
+        document.addEventListener('DOMContentLoaded', renderFiltered);
     </script>
 </body>
 
