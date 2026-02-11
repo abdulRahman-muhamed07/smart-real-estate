@@ -81,23 +81,32 @@
                         </div>
 
                         <div>
-                            <label class="block text-sm font-bold text-slate-600 mb-3">نطاق السعر</label>
-                            <input type="range" min="0" max="10000000" step="100000"
-                                class="w-full accent-blue-600 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                            <div class="flex justify-between items-center mb-3">
+                                <label class="text-sm font-bold text-slate-600">نطاق السعر</label>
+                                <span id="price-display"
+                                    class="text-xs font-black text-blue-700 bg-blue-50 px-2 py-1 rounded-lg">10M+
+                                    ج.م</span>
+                            </div>
+                            <input type="range" id="price-range" min="0" max="25000000" step="500000" value="25000000"
+                                class="w-full accent-blue-600 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                                oninput="updatePriceDisplay(); renderFiltered()">
                             <div class="flex justify-between mt-2 text-xs font-black text-slate-500">
                                 <span>0 ج.م</span>
-                                <span>10M+ ج.م</span>
+                                <span>25M+ ج.م</span>
                             </div>
                         </div>
 
                         <div>
                             <label class="block text-sm font-bold text-slate-600 mb-3">المدينة</label>
-                            <select
-                                class="w-full p-3 border border-slate-200 rounded-xl bg-white font-bold text-sm outline-none focus:ring-2 focus:ring-blue-600">
-                                <option>القاهرة الجديدة</option>
-                                <option>العاصمة الإدارية</option>
-                                <option>الشيخ زايد</option>
-                                <option>الساحل الشمالي</option>
+                            <select id="city-filter"
+                                class="w-full p-3 border border-slate-200 rounded-xl bg-white font-bold text-sm outline-none focus:ring-2 focus:ring-blue-600"
+                                onchange="renderFiltered()">
+                                <option value="all">الكل</option>
+                                <option value="القاهرة">القاهرة</option>
+                                <option value="الجيزة">الجيزة</option>
+                                <option value="الساحل الشمالي">الساحل الشمالي</option>
+                                <option value="العاصمة الإدارية">العاصمة الإدارية</option>
+                                <option value="الغردقة">الغردقة</option>
                             </select>
                         </div>
                     </div>
@@ -183,10 +192,23 @@
 
     <script src="assets/js/scripts.js"></script>
     <script>
+        function updatePriceDisplay() {
+            const range = document.getElementById('price-range');
+            const display = document.getElementById('price-display');
+            const val = parseInt(range.value);
+            if (val >= 25000000) {
+                display.innerText = '25M+ ج.م';
+            } else {
+                display.innerText = (val / 1000000).toFixed(1) + 'M ج.م';
+            }
+        }
+
         function renderFiltered() {
             const grid = document.getElementById('grid-all-properties');
             const pageTitle = document.querySelector('h2.text-3xl.font-black');
             const sortOrder = document.getElementById('sort-order').value;
+            const maxPrice = parseInt(document.getElementById('price-range').value);
+            const cityFilter = document.getElementById('city-filter').value;
 
             // Get selected categories
             const selectedCats = Array.from(document.querySelectorAll('.category-filter:checked')).map(cb => cb.value);
@@ -211,10 +233,18 @@
                     filtered = filtered.filter(p => selectedCats.includes(p.category));
                 }
 
-                // 3. Sorting
+                // 3. Price Filter
+                filtered = filtered.filter(p => getPriceValue(p.price) <= maxPrice);
+
+                // 4. City Filter
+                if (cityFilter !== 'all') {
+                    filtered = filtered.filter(p => p.loc.includes(cityFilter));
+                }
+
+                // 5. Sorting
                 filtered = sortProperties(filtered, sortOrder);
 
-                // 4. Render
+                // 6. Render
                 grid.innerHTML = filtered.map(p => createCard(p)).join('');
 
                 if (filtered.length === 0) {
@@ -223,7 +253,10 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', renderFiltered);
+        document.addEventListener('DOMContentLoaded', () => {
+            updatePriceDisplay();
+            renderFiltered();
+        });
     </script>
 </body>
 

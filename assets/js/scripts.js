@@ -60,7 +60,7 @@ const propertyList = [
     { id: 9, price: '18,500,000 ج.م', type: 'For Sale', category: 'villa', title: 'فيلا مودرن El Gouna', beds: 4, baths: 4, sqft: '300', loc: 'الجونة، الغردقة', match: '94%', rating: 4.9, img: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=800' },
     { id: 10, price: '9,500 ج.م/شهر', type: 'For Rent', category: 'apartment', title: 'استوديو بموقع مميز', beds: 1, baths: 1, sqft: '75', loc: '6 أكتوبر، الجيزة', match: '87%', rating: 4.4, img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800' },
     { id: 11, price: '7,200,000 ج.م', type: 'For Sale', category: 'apartment', title: 'دوبلكس بحديقة خاصة', beds: 4, baths: 3, sqft: '250', loc: 'العاصمة الإدارية', match: '90%', rating: 4.7, img: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=800' },
-    { id: 12, price: '2,800,000 ج.م', type: 'For Sale', category: 'chalet', title: 'شاليه استلام فوري', beds: 2, baths: 1, sqft: '100', loc: 'الساحل الشمالي', match: '85%', rating: 4.3, img: 'https://images.unsplash.com/photo-1520608421441-67c7ad29ba14?auto=format&fit=crop&w=800' }
+    { id: 12, price: '2,800,000 ج.م', type: 'For Sale', category: 'chalet', title: 'شاليه استلام فوري', beds: 2, baths: 1, sqft: '100', loc: 'الساحل الشمالي', match: '85%', rating: 4.3, img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800' }
 ];
 
 const properties = propertyList; // For compatibility with different pages
@@ -81,6 +81,31 @@ function sortProperties(list, criteria) {
         default:
             return sorted.sort((a, b) => b.id - a.id);
     }
+}
+
+// --- Buy Now Logic ---
+function handleBuyNow() {
+    // Create a premium feedback toast/modal
+    const overlay = document.createElement('div');
+    overlay.className = 'fixed inset-0 z-[200] flex items-center justify-center p-6 bg-slate-900/40 backdrop-blur-xl animate-fade-in';
+    overlay.innerHTML = `
+        <div class="bg-white rounded-[3rem] p-12 max-w-lg w-full text-center shadow-2xl relative overflow-hidden group">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 to-emerald-500"></div>
+            <div class="w-24 h-24 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-8 text-4xl animate-bounce">
+                ✓
+            </div>
+            <h2 class="text-4xl font-black mb-4">تهانينا! 🎉</h2>
+            <p class="text-slate-500 font-bold text-lg mb-8 leading-relaxed">
+                لقد بدأت رحلة الحصول على منزل أحلامك. سيقوم مستشارنا العقاري بالتواصل معك خلال 30 دقيقة لإتمام الإجراءات.
+            </p>
+            <button onclick="this.closest('.fixed').remove()" 
+                class="w-full py-5 bg-slate-900 text-white rounded-2xl font-black text-xl hover:bg-slate-800 transition-all shadow-xl">
+                حسناً، بانتظاركم
+            </button>
+            <div class="mt-6 text-sm font-bold text-slate-400">رقم المرجعي: #${Math.floor(Math.random() * 1000000)}</div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
 }
 
 // --- Wishlist Logic ---
