@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كل العقارات | العقار الذكي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/home.css">
+</head>
+
+<body class="bg-gray-50 text-slate-900">
+
+    <!-- Universal Header -->
+    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-[100]">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-12">
+                <a href="index.html" class="text-2xl font-black text-blue-700 flex items-center gap-2 cursor-pointer">
+                    <span class="bg-blue-600 text-white p-1 rounded-lg">🏠</span> العقار الذكي
+                </a>
+                <ul class="hidden lg:flex gap-8 text-slate-600 font-bold text-sm">
+                    <li><a href="index.html" class="hover:text-blue-600 cursor-pointer transition">الرئيسية</a></li>
+                    <li class="px-4 py-1.5 bg-blue-700 text-white rounded-full cursor-pointer transition">شراء</li>
+                    <li><a href="sell.html" class="hover:text-blue-600 cursor-pointer transition">بيع</a></li>
+                    <li><a href="all-properties.html"
+                            class="hover:text-blue-600 cursor-pointer transition active">إيجار</a></li>
+                    <li class="text-blue-600 flex items-center gap-1 cursor-pointer font-black"><a
+                            href="evaluate.html">بحث AI</a> <span
+                            class="text-[10px] bg-blue-100 px-1 rounded">PRO</span></li>
+                    <li><a href="#" class="hover:text-blue-600 cursor-pointer transition">من نحن</a></li>
+                </ul>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="login.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">تسجيل
+                    دخول</a>
+                <button
+                    class="px-6 py-2.5 bg-blue-700 text-white rounded-xl font-bold hover:bg-blue-800 shadow-lg shadow-blue-100 transition">ابدأ
+                    الآن</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="animate-section">
+        <div class="container mx-auto px-6 py-12 flex flex-col md:flex-row gap-12">
+            <!-- Sidebar Filter -->
+            <aside class="w-full md:w-64 space-y-8">
+                <div>
+                    <h3 class="text-xl font-black mb-6">تصفية النتائج</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-600 mb-3">نوع العقار</label>
+                            <div class="space-y-2">
+                                <label
+                                    class="flex items-center gap-3 cursor-pointer p-2 hover:bg-white rounded-xl transition">
+                                    <input type="checkbox" class="w-5 h-5 accent-blue-600" checked>
+                                    <span class="font-bold text-sm text-slate-700">شقق سكنية</span>
+                                </label>
+                                <label
+                                    class="flex items-center gap-3 cursor-pointer p-2 hover:bg-white rounded-xl transition">
+                                    <input type="checkbox" class="w-5 h-5 accent-blue-600">
+                                    <span class="font-bold text-sm text-slate-700">فيلات فاخرة</span>
+                                </label>
+                                <label
+                                    class="flex items-center gap-3 cursor-pointer p-2 hover:bg-white rounded-xl transition">
+                                    <input type="checkbox" class="w-5 h-5 accent-blue-600" checked>
+                                    <span class="font-bold text-sm text-slate-700">شاليهات</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-slate-600 mb-3">نطاق السعر</label>
+                            <input type="range" min="0" max="10000000" step="100000"
+                                class="w-full accent-blue-600 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                            <div class="flex justify-between mt-2 text-xs font-black text-slate-500">
+                                <span>0 ج.م</span>
+                                <span>10M+ ج.م</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-slate-600 mb-3">المدينة</label>
+                            <select
+                                class="w-full p-3 border border-slate-200 rounded-xl bg-white font-bold text-sm outline-none focus:ring-2 focus:ring-blue-600">
+                                <option>القاهرة الجديدة</option>
+                                <option>العاصمة الإدارية</option>
+                                <option>الشيخ زايد</option>
+                                <option>الساحل الشمالي</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Grid Content -->
+            <div class="flex-1">
+                <div class="flex justify-between items-center mb-10">
+                    <h2 class="text-3xl font-black">جميع العقارات المتاحة</h2>
+                    <div class="flex gap-2">
+                        <span class="text-slate-400 font-bold">ترتيب حسب:</span>
+                        <select class="bg-transparent font-black text-blue-700 outline-none cursor-pointer">
+                            <option>الأحدث أولاً</option>
+                            <option>السعر: من الأقل</option>
+                            <option>السعر: من الأعلى</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="grid-all-properties" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Cards will be rendered here via scripts.js -->
+                </div>
+
+                <!-- Pagination Placeholder -->
+                <div class="mt-16 flex justify-center gap-2">
+                    <button
+                        class="w-10 h-10 rounded-xl bg-blue-700 text-white font-black shadow-lg shadow-blue-100">1</button>
+                    <button
+                        class="w-10 h-10 rounded-xl bg-white text-slate-600 font-black hover:bg-blue-50 transition border border-slate-100">2</button>
+                    <button
+                        class="w-10 h-10 rounded-xl bg-white text-slate-600 font-black hover:bg-blue-50 transition border border-slate-100">3</button>
+                    <button
+                        class="w-10 h-10 rounded-xl bg-white text-slate-600 font-black hover:bg-blue-50 transition border border-slate-100">→</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-950 text-white pt-24 pb-12 mt-24 text-right">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
+            <div>
+                <a href="index.html"
+                    class="text-3xl font-black mb-8 flex items-center gap-2 cursor-pointer justify-end">
+                    <span class="bg-blue-600 text-white p-1 rounded-lg">🏠</span> العقار الذكي
+                </a>
+                <p class="text-slate-400 leading-relaxed font-bold">مستقبل العقارات المدعوم بالذكاء الاصطناعي في مصر.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-xl font-black mb-8">الخدمات</h4>
+                <ul class="space-y-4 text-slate-400 font-bold">
+                    <li><a href="all-properties.html" class="hover:text-white transition">شراء عقارات</a></li>
+                    <li><a href="sell.html" class="hover:text-white transition">بيع عقاري</a></li>
+                    <li><a href="evaluate.html" class="hover:text-white transition">تقييم AI</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xl font-black mb-8">الروابط</h4>
+                <ul class="space-y-4 text-slate-400 font-bold">
+                    <li><a href="index.html" class="hover:text-white transition">الرئيسية</a></li>
+                    <li><a href="login.html" class="hover:text-white transition">دخول</a></li>
+                    <li><a href="signup.html" class="hover:text-white transition">تسجيل</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xl font-black mb-8">تواصل معنا</h4>
+                <ul class="space-y-4 text-slate-400 font-bold">
+                    <li>info@aqaridzki.com</li>
+                    <li>+20 100 000 0000</li>
+                </ul>
+            </div>
+        </div>
+        <div
+            class="container mx-auto px-6 border-t border-white/5 mt-20 pt-10 text-center text-slate-500 font-bold text-sm">
+            © 2025 العقار الذكي. All rights reserved. Made with ✨ & AI.
+        </div>
+    </footer>
+
+    <script src="assets/js/scripts.js"></script>
+    <script>
+        // Trigger manual render for this page since it has a specific grid ID
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('grid-all-properties');
+            if (grid && typeof properties !== 'undefined') {
+                grid.innerHTML = properties.map(p => createCard(p)).join('');
+            }
+        });
+    </script>
+</body>
+
+</html>

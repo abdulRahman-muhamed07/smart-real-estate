@@ -83,7 +83,7 @@ function createCard(p) {
             </div>
             <div class="pt-6 border-t border-slate-50 flex items-center justify-between text-slate-400 text-xs font-bold">
                 <span class="flex items-center gap-1">📍 ${p.loc}</span>
-                <button class="text-blue-700 font-black hover:underline transition">التفاصيل ←</button>
+                <a href="details.html" class="text-blue-700 font-black hover:underline transition">التفاصيل ←</a>
             </div>
         </div>
     </div>

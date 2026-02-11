@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بيع عقارك | العقار الذكي</title>
+    <title>تقييم العقار | العقار الذكي</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/global.css">
@@ -22,11 +22,12 @@
                 <ul class="hidden lg:flex gap-8 text-slate-600 font-bold text-sm">
                     <li><a href="index.html" class="hover:text-blue-600 cursor-pointer transition">الرئيسية</a></li>
                     <li><a href="home.html" class="hover:text-blue-600 cursor-pointer transition">شراء</a></li>
-                    <li class="px-4 py-1.5 bg-blue-700 text-white rounded-full cursor-pointer transition">بيع</li>
+                    <li><a href="sell.html" class="hover:text-blue-600 cursor-pointer transition">بيع</a></li>
                     <li><a href="all-properties.html" class="hover:text-blue-600 cursor-pointer transition">إيجار</a>
                     </li>
-                    <li class="text-blue-600 flex items-center gap-1 cursor-pointer font-black">بحث AI <span
-                            class="text-[10px] bg-blue-100 px-1 rounded">PRO</span></li>
+                    <li
+                        class="bg-blue-700 text-white px-4 py-1.5 rounded-full flex items-center gap-1 cursor-pointer font-black">
+                        بحث AI <span class="text-[10px] bg-blue-100/20 px-1 rounded">PRO</span></li>
                     <li class="hover:text-blue-600 cursor-pointer transition">من نحن</li>
                 </ul>
             </div>
@@ -45,27 +46,21 @@
             <div class="grid lg:grid-cols-2 gap-20 items-center">
                 <!-- Text Content (Right) -->
                 <div class="order-2 lg:order-1 text-right">
-                    <h1 class="text-6xl font-black mb-6 leading-tight">قم ببيع عقارك<br><span class="text-blue-700">بكل
-                            سهولة</span></h1>
-                    <h2 class="text-3xl font-black text-emerald-600 mb-8 font-black">عقاراتك بذكاء</h2>
+                    <h1 class="text-6xl font-black mb-6 leading-tight">قيم عقارك<br><span class="text-blue-700">بذكاء
+                            فائق</span></h1>
+                    <h2 class="text-3xl font-black text-emerald-600 mb-8">عن طريق الذكاء الاصطناعي</h2>
                     <p class="text-xl text-slate-500 font-bold mb-10 leading-relaxed max-w-xl">
-                        انضم إلى آلاف البائعين الناجحين في العقار الذكي. نحن نستخدم أحدث تقنيات الذكاء الاصطناعي لوصل
-                        عقارك بالمشترين المناسبين تماماً.
+                        احصل على أدق تقدير لسعر عقارك في السوق الحالي. خوارزمياتنا تحلل آلاف العقارات المشابهة لتوفر لك
+                        تقريراً شاملاً في ثوانٍ معدودة.
                     </p>
-                    <div class="flex gap-4">
-                        <a href="evaluate.html"
-                            class="bg-blue-700 hover:bg-blue-800 text-white font-black px-10 py-5 rounded-2xl shadow-xl shadow-blue-100 transition-all text-xl">
-                            ابدأ التقييم الآن
-                        </a>
-                    </div>
                 </div>
 
                 <!-- Form Card (Left) -->
                 <div class="order-1 lg:order-2">
                     <div class="bg-white p-10 lg:p-12 rounded-[3.5rem] shadow-2xl border border-slate-100">
                         <h3
-                            class="text-2xl font-black mb-8 text-right underline underline-offset-8 decoration-emerald-500">
-                            تفاصيل العقار</h3>
+                            class="text-2xl font-black mb-8 text-right underline underline-offset-8 decoration-blue-500">
+                            نموذج التقييم الذكي</h3>
                         <form class="space-y-6 text-right font-bold">
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div>
@@ -75,12 +70,10 @@
                                         <option>شقة سكنية</option>
                                         <option>فيلا مستقلة</option>
                                         <option>شاليه</option>
-                                        <option>محل تجاري</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">المساحة
-                                        (متر)</label>
+                                    <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">المساحة</label>
                                     <input type="number" placeholder="150"
                                         class="w-full p-4 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none bg-slate-50 text-right">
                                 </div>
@@ -89,44 +82,32 @@
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div>
                                     <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">المنطقة</label>
-                                    <input type="text" placeholder="القاهرة الجديدة"
+                                    <input type="text" placeholder="الرحاب، القاهرة"
                                         class="w-full p-4 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none bg-slate-50 text-right">
                                 </div>
                                 <div>
-                                    <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">رقم التواصل</label>
-                                    <input type="text" placeholder="01XXXXXXXXX"
+                                    <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">عدد الغرف</label>
+                                    <input type="number" placeholder="3"
                                         class="w-full p-4 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none bg-slate-50 text-right">
                                 </div>
                             </div>
 
                             <div>
-                                <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">طريقة الدفع</label>
-                                <div class="flex gap-6 mt-2 mr-2">
-                                    <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="radio" name="payment" class="w-4 h-4 accent-emerald-500" checked>
-                                        كاش
-                                    </label>
-                                    <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="radio" name="payment" class="w-4 h-4 accent-emerald-500"> تقسيط
-                                    </label>
-                                </div>
+                                <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">السعر المتوقع
+                                    (ج.م)</label>
+                                <input type="number" placeholder="1,500,000"
+                                    class="w-full p-4 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none bg-slate-50 text-right">
                             </div>
 
                             <div>
-                                <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">وصف العقار</label>
-                                <textarea rows="4" placeholder="اكتب تفاصيل إضافية..."
+                                <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">تفاصيل المرفقات</label>
+                                <textarea rows="3" placeholder="أرفق أي تفاصيل تزيد من دقة التقييم..."
                                     class="w-full p-4 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none bg-slate-50 text-right"></textarea>
                             </div>
 
-                            <div
-                                class="border-2 border-dashed border-slate-200 rounded-2xl p-8 text-center bg-slate-50 hover:border-blue-400 transition cursor-pointer">
-                                <span class="text-3xl mb-2 block">📸</span>
-                                <span class="text-xs text-slate-500">اضغط لرفع صور العقار</span>
-                            </div>
-
                             <button type="submit"
-                                class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-black py-5 rounded-2xl mt-4 shadow-xl shadow-emerald-100 transition-all text-xl">
-                                عرض العقار للبيع
+                                class="w-full bg-blue-700 hover:bg-blue-800 text-white font-black py-5 rounded-2xl mt-4 shadow-xl shadow-blue-100 transition-all text-xl">
+                                عرض تقييم البيع
                             </button>
                         </form>
                     </div>
