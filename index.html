@@ -34,19 +34,38 @@
                 </ul>
             </div>
             <div class="flex items-center gap-6">
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden text-2xl text-slate-700 p-2">
+                    ☰
+                </button>
+                
                 <!-- Wishlist Link -->
                 <a href="wishlist.html" class="relative group p-2 hover:bg-slate-50 rounded-xl transition-all">
                     <span class="text-2xl group-hover:scale-110 inline-block transition">❤️</span>
                     <span
                         class="wishlist-counter absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white hidden">0</span>
                 </a>
-                <a href="login.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">تسجيل
+                <a href="login.html" class="hidden md:block px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">تسجيل
                     دخول</a>
                 <button
-                    class="px-6 py-2.5 bg-blue-700 text-white rounded-xl font-bold hover:bg-blue-800 shadow-lg shadow-blue-100 transition">ابدأ
+                    class="hidden md:block px-6 py-2.5 bg-blue-700 text-white rounded-xl font-bold hover:bg-blue-800 shadow-lg shadow-blue-100 transition">ابدأ
                     الآن</button>
             </div>
         </nav>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-nav" class="fixed inset-0 bg-slate-900/95 z-[200] hidden flex flex-col items-center justify-center space-y-8 animate-fade-in lg:hidden">
+            <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-white text-4xl">&times;</button>
+            <a href="index.html" class="text-2xl font-black text-white hover:text-blue-400 transition">الرئيسية</a>
+            <a href="all-properties.html?type=sale" class="text-2xl font-black text-white hover:text-blue-400 transition">شراء</a>
+            <a href="sell.html" class="text-2xl font-black text-white hover:text-blue-400 transition">بيع</a>
+            <a href="all-properties.html?type=rent" class="text-2xl font-black text-white hover:text-blue-400 transition">إيجار</a>
+            <a href="evaluate.html" class="text-2xl font-black text-blue-400 hover:text-white transition">بحث AI ✨</a>
+            <div class="flex gap-4 mt-8">
+                <a href="login.html" class="px-8 py-3 bg-white text-slate-900 rounded-xl font-bold">دخول</a>
+                <a href="signup.html" class="px-8 py-3 bg-blue-600 text-white rounded-xl font-bold">تسجيل</a>
+            </div>
+        </div>
     </header>
 
     <main class="animate-section">

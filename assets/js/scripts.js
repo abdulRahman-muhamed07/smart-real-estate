@@ -1,6 +1,22 @@
 const apiKey = ""; // API Key provided by system
 const modelName = "gemini-2.5-flash-preview-09-2025";
 
+function toggleMobileMenu() {
+    const nav = document.getElementById('mobile-nav');
+    if (nav) {
+        if (nav.classList.contains('hidden')) {
+            nav.classList.remove('hidden');
+            nav.classList.add('flex');
+            // Prevent scrolling
+            document.body.style.overflow = 'hidden';
+        } else {
+            nav.classList.add('hidden');
+            nav.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+    }
+}
+
 // Gemini API Wrapper
 async function callGemini(prompt, system = "", search = false) {
     if (!apiKey) {
@@ -152,9 +168,61 @@ function updateWishlistUI() {
     }
 }
 
-// Ensure UI is updated on load
-document.addEventListener('DOMContentLoaded', updateWishlistUI);
-// ----------------------
+// --- Mobile Menu Logic ---
+function toggleMobileMenu() {
+    const nav = document.getElementById('mobile-nav');
+    if (nav) {
+        nav.classList.toggle('hidden');
+    }
+}
+
+// --- Sell Form Logic ---
+function handleSellForm(event) {
+    event.preventDefault();
+    const btn = event.target.querySelector('button[type="submit"]');
+    const originalText = btn.innerText;
+    
+    btn.disabled = true;
+    btn.innerHTML = "⏳ جاري الإرسال...";
+    
+    setTimeout(() => {
+        btn.innerHTML = "✅ تم الإرسال بنجاح!";
+        btn.classList.remove('bg-emerald-500', 'hover:bg-emerald-600');
+        btn.classList.add('bg-green-600');
+        
+        // Show success modal or toast
+        const overlay = document.createElement('div');
+        overlay.className = 'fixed inset-0 z-[200] flex items-center justify-center p-6 bg-slate-900/40 backdrop-blur-xl animate-fade-in';
+        overlay.innerHTML = `
+            <div class="bg-white rounded-[3rem] p-12 max-w-lg w-full text-center shadow-2xl relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 to-emerald-500"></div>
+                <div class="w-24 h-24 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-8 text-4xl animate-bounce">
+                    🎉
+                </div>
+                <h2 class="text-3xl font-black mb-4">تم استلام طلبك!</h2>
+                <p class="text-slate-500 font-bold text-lg mb-8 leading-relaxed">
+                    شكراً لك. سيقوم فريقنا بمراجعة تفاصيل عقارك والتواصل معك خلال 24 ساعة.
+                </p>
+                <button onclick="window.location.href='index.html'" 
+                    class="w-full py-4 bg-slate-900 text-white rounded-2xl font-black text-lg hover:bg-slate-800 transition-all shadow-xl">
+                    العودة للرئيسية
+                </button>
+            </div>
+        `;
+        document.body.appendChild(overlay);
+        
+        event.target.reset();
+    }, 1500);
+}
+
+// Ensure Sell Form is attached
+document.addEventListener('DOMContentLoaded', () => {
+    const sellForm = document.querySelector('form');
+    if (sellForm && window.location.pathname.includes('sell.html')) {
+        sellForm.addEventListener('submit', handleSellForm);
+    }
+});
+
 
 function createCard(p) {
     const isSaved = wishlist.includes(p.id);
