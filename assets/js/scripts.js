@@ -343,7 +343,7 @@ async function sendChatMessage() {
     aiPlaceholder.innerText = "جاري التفكير...";
     box.appendChild(aiPlaceholder);
 
-    const system = "أنت مساعد ذكي لمنصة 'العقار الذكي' في مصر. وظيفتك مساعدة المستخدمين في فهم سوق العقارات، أسعار المناطق، والنصائح القانونية. استخدم بحث جوجل للتحقق من المعلومات الحالية.";
+    const system = "أنت مساعد ذكي لمنصة 'الذكاء العقاري' في مصر. وظيفتك مساعدة المستخدمين في فهم سوق العقارات، أسعار المناطق، والنصائح القانونية. استخدم بحث جوجل للتحقق من المعلومات الحالية.";
     const response = await callGemini(txt, system, true);
 
     aiPlaceholder.classList.remove('animate-pulse', 'italic', 'text-slate-400');
