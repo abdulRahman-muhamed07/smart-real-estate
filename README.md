@@ -29,6 +29,7 @@
 3. **العقارات المحفوظة (Wishlist)**: إمكانية حفظ العقارات المفضلة للرجوع إليها لاحقاً مع عداد ديناميكي في الرأس.
 4. **تنظيم الملاحة (Consolidated Navigation)**: توحيد مسارات التنقل (Buy/Rent) وإصلاح كافة الروابط والـ CTAs في الموقع.
 5. **تقييم ذكي**: تحليل بيانات العقار وتوقع السعر العادل باستخدام AI.
+6. **Pagination dynamic**: Implementation of dynamic pagination for property listings, allowing users to browse through multiple pages of properties seamlessly.
 
 ---
 تم تحديث هذا المشروع بخصائص ملاحية متطورة ونظام حفظ العقارات لضمان أفضل تجربة مستخدم.
