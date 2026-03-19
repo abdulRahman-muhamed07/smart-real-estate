@@ -31,6 +31,7 @@
                             class="text-blue-600 flex items-center gap-1 cursor-pointer font-black">بحث AI <span
                                 class="text-[10px] bg-blue-100 px-1 rounded">PRO</span></a></li>
                     <li><a href="#" class="hover:text-blue-600 cursor-pointer transition">من نحن</a></li>
+                    <li><a href="admin.html" class="hover:text-blue-600 cursor-pointer transition">لوحة التحكم</a></li>
                 </ul>
             </div>
             <div class="flex items-center gap-6">
@@ -40,11 +41,17 @@
                     <span
                         class="wishlist-counter absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white hidden">0</span>
                 </a>
-                <a href="login.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">تسجيل
-                    دخول</a>
-                <button
-                    class="px-6 py-2.5 bg-blue-700 text-white rounded-xl font-bold hover:bg-blue-800 shadow-lg shadow-blue-100 transition">ابدأ
-                    الآن</button>
+                <div class="nav-auth-logged-out flex items-center gap-3">
+                    <a href="login.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">تسجيل
+                        دخول</a>
+                    <a href="signup.html"
+                        class="px-6 py-2.5 bg-blue-700 text-white rounded-xl font-bold hover:bg-blue-800 shadow-lg shadow-blue-100 transition">ابدأ
+                        الآن</a>
+                </div>
+                <div class="nav-auth-logged-in flex items-center gap-3" style="display:none;">
+                    <a href="admin.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">لوحة التحكم</a>
+                    <button onclick="logout()" class="px-6 py-2.5 bg-red-100 text-red-600 rounded-xl font-bold hover:bg-red-200 transition">تسجيل خروج</button>
+                </div>
             </div>
         </nav>
     </header>
@@ -57,25 +64,25 @@
                     <h3 class="text-xl font-black mb-6">تصفية النتائج</h3>
                     <div class="space-y-6">
                         <div>
-                            <label class="block text-sm font-bold text-slate-600 mb-3">نوع العقار</label>
+                            <label class="block text-sm font-bold text-slate-600 mb-3">نوع العرض</label>
                             <div class="space-y-2">
                                 <label
                                     class="flex items-center gap-3 cursor-pointer p-2 hover:bg-white rounded-xl transition">
-                                    <input type="checkbox" class="category-filter w-5 h-5 accent-blue-600"
-                                        value="apartment" checked onchange="renderFiltered()">
-                                    <span class="font-bold text-sm text-slate-700">شقق سكنية</span>
+                                    <input type="radio" name="type-filter" class="type-filter w-5 h-5 accent-blue-600"
+                                        value="all" checked onchange="renderFiltered()">
+                                    <span class="font-bold text-sm text-slate-700">الكل</span>
                                 </label>
                                 <label
                                     class="flex items-center gap-3 cursor-pointer p-2 hover:bg-white rounded-xl transition">
-                                    <input type="checkbox" class="category-filter w-5 h-5 accent-blue-600" value="villa"
-                                        checked onchange="renderFiltered()">
-                                    <span class="font-bold text-sm text-slate-700">فيلات فاخرة</span>
+                                    <input type="radio" name="type-filter" class="type-filter w-5 h-5 accent-blue-600"
+                                        value="sale" onchange="renderFiltered()">
+                                    <span class="font-bold text-sm text-slate-700">للبيع</span>
                                 </label>
                                 <label
                                     class="flex items-center gap-3 cursor-pointer p-2 hover:bg-white rounded-xl transition">
-                                    <input type="checkbox" class="category-filter w-5 h-5 accent-blue-600"
-                                        value="chalet" checked onchange="renderFiltered()">
-                                    <span class="font-bold text-sm text-slate-700">شاليهات</span>
+                                    <input type="radio" name="type-filter" class="type-filter w-5 h-5 accent-blue-600"
+                                        value="rent" onchange="renderFiltered()">
+                                    <span class="font-bold text-sm text-slate-700">للإيجار</span>
                                 </label>
                             </div>
                         </div>
@@ -102,11 +109,6 @@
                                 class="w-full p-3 border border-slate-200 rounded-xl bg-white font-bold text-sm outline-none focus:ring-2 focus:ring-blue-600"
                                 onchange="renderFiltered()">
                                 <option value="all">الكل</option>
-                                <option value="القاهرة">القاهرة</option>
-                                <option value="الجيزة">الجيزة</option>
-                                <option value="الساحل الشمالي">الساحل الشمالي</option>
-                                <option value="العاصمة الإدارية">العاصمة الإدارية</option>
-                                <option value="الغردقة">الغردقة</option>
                             </select>
                         </div>
                     </div>
@@ -196,6 +198,20 @@
             }
         }
 
+        function populateCityFilter() {
+            const select = document.getElementById('city-filter');
+            if (!select || !properties.length) return;
+            const cities = new Set();
+            properties.forEach(p => {
+                const name = p.city?.name;
+                if (name) cities.add(name);
+            });
+            select.innerHTML = '<option value="all">الكل</option>';
+            cities.forEach(city => {
+                select.innerHTML += '<option value="' + city + '">' + city + '</option>';
+            });
+        }
+
         let currentPage = 1;
         const itemsPerPage = 6;
 
@@ -207,95 +223,99 @@
             const cityFilter = document.getElementById('city-filter').value;
             const paginationContainer = document.getElementById('pagination-container');
 
-            // Get selected categories
-            const selectedCats = Array.from(document.querySelectorAll('.category-filter:checked')).map(cb => cb.value);
+            if (!grid || typeof properties === 'undefined' || !properties.length) {
+                grid.innerHTML = '<div class="col-span-full py-20 text-center font-bold text-slate-400">جاري تحميل العقارات...</div>';
+                return;
+            }
 
-            if (grid && typeof properties !== 'undefined') {
-                const params = new URLSearchParams(window.location.search);
-                const typeFilter = params.get('type'); // 'sale' or 'rent'
+            // Populate city filter from actual data
+            populateCityFilter();
 
-                let filtered = [...properties];
+            // Get selected type filter
+            const typeRadio = document.querySelector('.type-filter:checked');
+            const typeFilter = typeRadio ? typeRadio.value : (new URLSearchParams(window.location.search).get('type') || 'all');
 
-                // 1. Initial Type Filter (from URL)
-                if (typeFilter === 'rent') {
-                    filtered = filtered.filter(p => p.type === 'For Rent');
-                    if (pageTitle) pageTitle.innerText = 'عقارات للإيجار';
-                } else if (typeFilter === 'sale') {
-                    filtered = filtered.filter(p => p.type === 'For Sale');
-                    if (pageTitle) pageTitle.innerText = 'عقارات للبيع';
-                }
+            let filtered = [...properties];
 
-                // 2. Category Filter
-                if (selectedCats.length > 0) {
-                    filtered = filtered.filter(p => selectedCats.includes(p.category));
-                }
+            // 1. Type Filter (For Sale / For Rent)
+            if (typeFilter === 'rent') {
+                filtered = filtered.filter(p => p.isForRent);
+                if (pageTitle) pageTitle.innerText = 'عقارات للإيجار';
+            } else if (typeFilter === 'sale') {
+                filtered = filtered.filter(p => !p.isForRent);
+                if (pageTitle) pageTitle.innerText = 'عقارات للبيع';
+            }
 
-                // 3. Price Filter
-                filtered = filtered.filter(p => getPriceValue(p.price) <= maxPrice);
+            // 2. Price Filter
+            filtered = filtered.filter(p => getPriceValue(p.price) <= maxPrice);
 
-                // 4. City Filter
-                if (cityFilter !== 'all') {
-                    filtered = filtered.filter(p => p.loc.includes(cityFilter));
-                }
+            // 3. City Filter
+            if (cityFilter !== 'all') {
+                filtered = filtered.filter(p => (p.city?.name || '') === cityFilter);
+            }
 
-                // 5. Sorting
-                filtered = sortProperties(filtered, sortOrder);
+            // 4. Sorting
+            filtered = sortProperties(filtered, sortOrder);
 
-                // 6. Pagination Logic
-                const totalPages = Math.ceil(filtered.length / itemsPerPage);
+            // 5. Pagination Logic
+            const totalPages = Math.ceil(filtered.length / itemsPerPage);
+            
+            // Ensure current page is valid
+            if (currentPage > totalPages) currentPage = 1;
+            if (currentPage < 1) currentPage = 1;
+
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const paginatedItems = filtered.slice(start, end);
+
+            // 6. Render Items
+            grid.innerHTML = paginatedItems.map(p => createCard(p)).join('');
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div class="col-span-full py-20 text-center font-bold text-slate-400">لا توجد نتائج تطابق بحثك حالياً.</div>';
+                paginationContainer.innerHTML = '';
+            } else {
+                // 7. Render Pagination Buttons
+                let buttonsHTML = '';
                 
-                // Ensure current page is valid
-                if (currentPage > totalPages) currentPage = 1;
-                if (currentPage < 1) currentPage = 1;
-
-                const start = (currentPage - 1) * itemsPerPage;
-                const end = start + itemsPerPage;
-                const paginatedItems = filtered.slice(start, end);
-
-                // 7. Render Items
-                grid.innerHTML = paginatedItems.map(p => createCard(p)).join('');
-
-                if (filtered.length === 0) {
-                    grid.innerHTML = `<div class="col-span-full py-20 text-center font-bold text-slate-400">لا توجد نتائج تطابق بحثك حالياً.</div>`;
-                    paginationContainer.innerHTML = ''; // Hide pagination if no results
-                } else {
-                    // 8. Render Pagination Buttons
-                    let buttonsHTML = '';
-                    
-                    // Previous Button
-                    if (totalPages > 1) {
-                        buttonsHTML += `<button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled class="opacity-50 cursor-not-allowed"' : ''} class="w-10 h-10 rounded-xl bg-white text-slate-600 font-black hover:bg-blue-50 transition border border-slate-100 flex items-center justify-center">←</button>`;
-                    }
-
-                    // Page Numbers
-                    for (let i = 1; i <= totalPages; i++) {
-                        if (i === currentPage) {
-                            buttonsHTML += `<button onclick="changePage(${i})" class="w-10 h-10 rounded-xl bg-blue-700 text-white font-black shadow-lg shadow-blue-100">${i}</button>`;
-                        } else {
-                            buttonsHTML += `<button onclick="changePage(${i})" class="w-10 h-10 rounded-xl bg-white text-slate-600 font-black hover:bg-blue-50 transition border border-slate-100">${i}</button>`;
-                        }
-                    }
-
-                    // Next Button
-                    if (totalPages > 1) {
-                        buttonsHTML += `<button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled class="opacity-50 cursor-not-allowed"' : ''} class="w-10 h-10 rounded-xl bg-white text-slate-600 font-black hover:bg-blue-50 transition border border-slate-100 flex items-center justify-center">→</button>`;
-                    }
-
-                    paginationContainer.innerHTML = buttonsHTML;
+                // Previous Button
+                if (totalPages > 1) {
+                    buttonsHTML += '<button onclick="changePage(' + (currentPage - 1) + ')" ' + (currentPage === 1 ? 'disabled class="opacity-50 cursor-not-allowed"' : '') + ' class="w-10 h-10 rounded-xl bg-white text-slate-600 font-black hover:bg-blue-50 transition border border-slate-100 flex items-center justify-center">\u2190</button>';
                 }
+
+                // Page Numbers
+                for (let i = 1; i <= totalPages; i++) {
+                    if (i === currentPage) {
+                        buttonsHTML += '<button onclick="changePage(' + i + ')" class="w-10 h-10 rounded-xl bg-blue-700 text-white font-black shadow-lg shadow-blue-100">' + i + '</button>';
+                    } else {
+                        buttonsHTML += '<button onclick="changePage(' + i + ')" class="w-10 h-10 rounded-xl bg-white text-slate-600 font-black hover:bg-blue-50 transition border border-slate-100">' + i + '</button>';
+                    }
+                }
+
+                // Next Button
+                if (totalPages > 1) {
+                    buttonsHTML += '<button onclick="changePage(' + (currentPage + 1) + ')" ' + (currentPage === totalPages ? 'disabled class="opacity-50 cursor-not-allowed"' : '') + ' class="w-10 h-10 rounded-xl bg-white text-slate-600 font-black hover:bg-blue-50 transition border border-slate-100 flex items-center justify-center">\u2192</button>';
+                }
+
+                paginationContainer.innerHTML = buttonsHTML;
             }
         }
 
         function changePage(page) {
             currentPage = page;
             renderFiltered();
-            // Scroll to top of grid smoothly
             document.getElementById('grid-all-properties').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
+        // Set initial type filter from URL params
         document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const typeParam = params.get('type');
+            if (typeParam) {
+                const radio = document.querySelector('.type-filter[value="' + typeParam + '"]');
+                if (radio) radio.checked = true;
+            }
             updatePriceDisplay();
-            renderFiltered();
         });
     </script>
 </body>

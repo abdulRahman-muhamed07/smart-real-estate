@@ -30,6 +30,7 @@
                             class="text-blue-600 flex items-center gap-1 cursor-pointer font-black">بحث AI <span
                                 class="text-[10px] bg-blue-100 px-1 rounded">PRO</span></a></li>
                     <li><a href="#" class="hover:text-blue-600 cursor-pointer transition">من نحن</a></li>
+                    <li><a href="admin.html" class="hover:text-blue-600 cursor-pointer transition">لوحة التحكم</a></li>
                 </ul>
             </div>
             <div class="flex items-center gap-6">
@@ -39,11 +40,17 @@
                     <span
                         class="wishlist-counter absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white hidden">0</span>
                 </a>
-                <a href="login.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">تسجيل
-                    دخول</a>
-                <button
-                    class="px-6 py-2.5 bg-blue-700 text-white rounded-xl font-bold hover:bg-blue-800 shadow-lg shadow-blue-100 transition">ابدأ
-                    الآن</button>
+                <div class="nav-auth-logged-out flex items-center gap-3">
+                    <a href="login.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">تسجيل
+                        دخول</a>
+                    <a href="signup.html"
+                        class="px-6 py-2.5 bg-blue-700 text-white rounded-xl font-bold hover:bg-blue-800 shadow-lg shadow-blue-100 transition">ابدأ
+                        الآن</a>
+                </div>
+                <div class="nav-auth-logged-in flex items-center gap-3" style="display:none;">
+                    <a href="admin.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">لوحة التحكم</a>
+                    <button onclick="logout()" class="px-6 py-2.5 bg-red-100 text-red-600 rounded-xl font-bold hover:bg-red-200 transition">تسجيل خروج</button>
+                </div>
             </div>
         </nav>
     </header>
@@ -169,32 +176,26 @@
 
     <script src="assets/js/scripts.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
-            const id = parseInt(params.get('id'));
+            const id = params.get('id');
+            if (!id) { showNotFound(); return; }
 
-            if (!id || typeof properties === 'undefined') {
-                showNotFound();
-                return;
-            }
+            try {
+                const p = await apiCall('/property/GetById/' + id);
+                const img = p.imageUrl || 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800';
 
-            const property = properties.find(p => p.id === id);
-
-            if (property) {
-                document.getElementById('details-wishlist-btn').dataset.id = property.id;
-                document.getElementById('prop-img').src = property.img;
-                document.getElementById('prop-match').innerText = property.match + ' AI MATCH';
-                document.getElementById('prop-title').innerText = property.title;
-                document.getElementById('prop-price').innerText = property.price;
-                document.getElementById('prop-loc').innerText = '📍 ' + property.loc;
-                document.getElementById('prop-beds').innerText = property.beds;
-                document.getElementById('prop-baths').innerText = property.baths;
-                document.getElementById('prop-sqft').innerText = property.sqft;
-                // Add description if available in object, otherwise use default
-                if (property.desc) {
-                    document.getElementById('prop-desc').innerText = property.desc;
-                }
-            } else {
+                document.getElementById('prop-img').src = img;
+                document.getElementById('prop-title').innerText = p.title;
+                document.getElementById('prop-price').innerText = p.price ? Number(p.price).toLocaleString() + ' ج.م' : '';
+                document.getElementById('prop-loc').innerText = '📍 ' + (p.city?.name || '');
+                document.getElementById('prop-beds').innerText = p.bedrooms || 0;
+                document.getElementById('prop-baths').innerText = p.bathrooms || 0;
+                document.getElementById('prop-sqft').innerText = p.area ? p.area + ' m²' : '';
+                document.getElementById('prop-desc').innerText = p.description || 'لا يوجد وصف';
+                document.getElementById('prop-match').innerText = (p.category?.name || 'عقار');
+                document.getElementById('details-wishlist-btn').dataset.id = p.id;
+            } catch (e) {
                 showNotFound();
             }
 

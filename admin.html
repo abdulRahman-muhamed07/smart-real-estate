@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | العقار الذكي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/global.css">
+</head>
+<body class="bg-slate-50 text-slate-900">
+    <header class="bg-white shadow-sm sticky top-0 z-[100]">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-12">
+                <a href="index.html" class="text-2xl font-black text-blue-700 flex items-center gap-2 cursor-pointer">
+                    <span class="bg-blue-600 text-white p-1 rounded-lg">🏠</span> الذكاء العقاري
+                </a>
+                <ul class="hidden lg:flex gap-8 text-slate-600 font-bold text-sm">
+                    <li><a href="index.html" class="hover:text-blue-600 cursor-pointer transition">الرئيسية</a></li>
+                    <li><a href="all-properties.html?type=sale" class="hover:text-blue-600 cursor-pointer transition">شراء</a></li>
+                    <li><a href="sell.html" class="hover:text-blue-600 cursor-pointer transition">بيع</a></li>
+                    <li><a href="all-properties.html?type=rent" class="hover:text-blue-600 cursor-pointer transition">إيجار</a></li>
+                    <li><a href="evaluate.html" class="text-blue-600 flex items-center gap-1 cursor-pointer font-black">بحث AI <span class="text-[10px] bg-blue-100 px-1 rounded">PRO</span></a></li>
+                    <li><a href="admin.html" class="text-blue-600 font-black cursor-pointer transition">لوحة التحكم</a></li>
+                </ul>
+            </div>
+            <div class="flex items-center gap-4">
+                <span id="adminName" class="font-bold text-slate-600"></span>
+                <a href="home.html" class="px-4 py-2 bg-slate-100 rounded-xl font-bold hover:bg-slate-200 transition">الرئيسية</a>
+                <button onclick="logout()" class="px-4 py-2 bg-red-100 text-red-600 rounded-xl font-bold hover:bg-red-200 transition">تسجيل خروج</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-2xl p-6 shadow-sm">
+                <p class="text-slate-400 font-bold text-sm mb-1">إجمالي العقارات</p>
+                <p id="statTotal" class="text-4xl font-black text-blue-700">-</p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm">
+                <p class="text-slate-400 font-bold text-sm mb-1">في الانتظار</p>
+                <p id="statPending" class="text-4xl font-black text-amber-500">-</p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm">
+                <p class="text-slate-400 font-bold text-sm mb-1">المستخدمين</p>
+                <p id="statUsers" class="text-4xl font-black text-emerald-600">-</p>
+            </div>
+        </div>
+
+        <div class="flex gap-4 mb-6">
+            <button onclick="showTab('pending')" id="tabPending" class="px-6 py-3 bg-blue-700 text-white rounded-xl font-black shadow-lg shadow-blue-100 transition">قيد المراجعة</button>
+            <button onclick="showTab('all')" id="tabAll" class="px-6 py-3 bg-white text-slate-600 rounded-xl font-bold hover:bg-slate-100 transition shadow-sm">جميع العقارات</button>
+        </div>
+
+        <div id="pendingSection">
+            <h2 class="text-2xl font-black mb-6">عقارات في انتظار الموافقة</h2>
+            <div id="pendingGrid" class="grid gap-4"></div>
+            <p id="noPending" class="text-center text-slate-400 py-12 font-bold hidden">لا توجد عقارات في الانتظار ✅</p>
+        </div>
+
+        <div id="allSection" class="hidden">
+            <h2 class="text-2xl font-black mb-6">جميع العقارات</h2>
+            <div id="allGrid" class="grid gap-4"></div>
+        </div>
+    </main>
+
+    <script src="assets/js/scripts.js"></script>
+    <script>
+        let currentTab = 'pending';
+
+        function showTab(tab) {
+            currentTab = tab;
+            document.getElementById('pendingSection').classList.toggle('hidden', tab !== 'pending');
+            document.getElementById('allSection').classList.toggle('hidden', tab !== 'all');
+            document.getElementById('tabPending').className = tab === 'pending' ? 'px-6 py-3 bg-blue-700 text-white rounded-xl font-black shadow-lg shadow-blue-100 transition' : 'px-6 py-3 bg-white text-slate-600 rounded-xl font-bold hover:bg-slate-100 transition shadow-sm';
+            document.getElementById('tabAll').className = tab === 'all' ? 'px-6 py-3 bg-blue-700 text-white rounded-xl font-black shadow-lg shadow-blue-100 transition' : 'px-6 py-3 bg-white text-slate-600 rounded-xl font-bold hover:bg-slate-100 transition shadow-sm';
+            if (tab === 'all') loadAllProperties();
+        }
+
+        async function loadAdmin() {
+            if (!isLoggedIn()) {
+                window.location.href = 'login.html';
+                return;
+            }
+            try {
+                const pending = await apiCall('/property/pending');
+                const pendingList = Array.isArray(pending) ? pending : (pending.data || []);
+                document.getElementById('statPending').textContent = pendingList.length;
+                document.getElementById('noPending').classList.toggle('hidden', pendingList.length > 0);
+                const grid = document.getElementById('pendingGrid');
+                grid.innerHTML = '';
+                pendingList.forEach(function(p) { grid.innerHTML += renderAdminCard(p, true); });
+            } catch (e) {
+                if (e.status === 403 || e.status === 401) {
+                    alert('تحتاج صلاحيات أدمن للدخول');
+                    window.location.href = 'home.html';
+                    return;
+                }
+            }
+            try {
+                const all = await apiCall('/property/all?pageSize=100');
+                document.getElementById('statTotal').textContent = all.totalCount || (all.data ? all.data.length : 0);
+            } catch(e) {}
+        }
+
+        async function loadAllProperties() {
+            try {
+                const all = await apiCall('/property/all?pageSize=100');
+                const list = all.data || all || [];
+                const grid = document.getElementById('allGrid');
+                grid.innerHTML = '';
+                list.forEach(function(p) { grid.innerHTML += renderAdminCard(p, false); });
+            } catch(e) {}
+        }
+
+        function renderAdminCard(p, showActions) {
+            var statusColor = p.isApproved ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700';
+            var statusText = p.isApproved ? (p.isForRent ? 'مؤجر' : 'معتمد') : 'قيد المراجعة';
+            var cat = (p.category && p.category.name) ? p.category.name : '';
+            var city = (p.city && p.city.name) ? p.city.name : '';
+            var area = p.area || 0;
+            var price = p.price ? Number(p.price).toLocaleString() + ' ج.م' : '';
+            var desc = p.description || '';
+
+            var html = '<div class="bg-white rounded-2xl p-6 shadow-sm flex flex-col md:flex-row gap-6 items-start">';
+            html += '<div class="flex-1">';
+            html += '<div class="flex items-center gap-3 mb-2">';
+            html += '<h3 class="font-black text-lg">' + (p.title || '') + '</h3>';
+            html += '<span class="' + statusColor + ' px-3 py-1 rounded-full text-xs font-black">' + statusText + '</span>';
+            html += '</div>';
+            html += '<p class="text-slate-400 text-sm font-bold mb-2">' + cat + ' \u2022 ' + city + ' \u2022 ' + area + ' m²</p>';
+            html += '<p class="text-blue-700 font-black text-xl">' + price + '</p>';
+            html += '<p class="text-slate-500 text-sm mt-2">' + desc + '</p>';
+            html += '</div>';
+
+            if (showActions) {
+                html += '<div class="flex gap-3">';
+                html += '<button onclick="approveProperty(' + p.id + ', 1)" class="px-6 py-3 bg-emerald-500 text-white rounded-xl font-black hover:bg-emerald-600 transition shadow-sm">✅ بيع</button>';
+                html += '<button onclick="approveProperty(' + p.id + ', 2)" class="px-6 py-3 bg-blue-500 text-white rounded-xl font-black hover:bg-blue-600 transition shadow-sm">🏠 إيجار</button>';
+                html += '<button onclick="deleteProperty(' + p.id + ')" class="px-6 py-3 bg-red-500 text-white rounded-xl font-black hover:bg-red-600 transition shadow-sm">🗑️ حذف</button>';
+                html += '</div>';
+            } else {
+                html += '<div class="flex gap-3">';
+                if (!p.isApproved) {
+                    html += '<button onclick="approveProperty(' + p.id + ', 1)" class="px-4 py-2 bg-emerald-500 text-white rounded-lg font-bold hover:bg-emerald-600 transition text-sm">✅ اعتماد</button>';
+                }
+                html += '<button onclick="deleteProperty(' + p.id + ')" class="px-4 py-2 bg-red-500 text-white rounded-lg font-bold hover:bg-red-600 transition text-sm">🗑️</button>';
+                html += '</div>';
+            }
+            html += '</div>';
+            return html;
+        }
+
+        async function approveProperty(id, status) {
+            try {
+                var data = await apiCall('/property/approve/' + id, {
+                    method: 'POST',
+                    body: JSON.stringify({ approve: true, newStatus: status })
+                });
+                alert(data.message || 'تمت الموافقة بنجاح');
+                loadAdmin();
+                if (currentTab === 'all') loadAllProperties();
+            } catch(e) { alert('فشل الموافقة'); }
+        }
+
+        async function deleteProperty(id) {
+            if (!confirm('هل أنت متأكد من الحذف؟')) return;
+            try {
+                await apiCall('/property/delete/' + id, { method: 'DELETE' });
+                alert('تم الحذف');
+                loadAdmin();
+                if (currentTab === 'all') loadAllProperties();
+            } catch(e) { alert('فشل الحذف'); }
+        }
+
+        loadAdmin();
+    </script>
+</body>
+</html>

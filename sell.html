@@ -30,6 +30,7 @@
                             class="text-blue-600 flex items-center gap-1 cursor-pointer font-black">بحث AI <span
                                 class="text-[10px] bg-blue-100 px-1 rounded">PRO</span></a></li>
                     <li><a href="#" class="hover:text-blue-600 cursor-pointer transition">من نحن</a></li>
+                    <li><a href="admin.html" class="hover:text-blue-600 cursor-pointer transition">لوحة التحكم</a></li>
                 </ul>
             </div>
             <div class="flex items-center gap-6">
@@ -39,11 +40,17 @@
                     <span
                         class="wishlist-counter absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white hidden">0</span>
                 </a>
-                <a href="login.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">تسجيل
-                    دخول</a>
-                <button
-                    class="px-6 py-2.5 bg-blue-700 text-white rounded-xl font-bold hover:bg-blue-800 shadow-lg shadow-blue-100 transition">ابدأ
-                    الآن</button>
+                <div class="nav-auth-logged-out flex items-center gap-3">
+                    <a href="login.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">تسجيل
+                        دخول</a>
+                    <a href="signup.html"
+                        class="px-6 py-2.5 bg-blue-700 text-white rounded-xl font-bold hover:bg-blue-800 shadow-lg shadow-blue-100 transition">ابدأ
+                        الآن</a>
+                </div>
+                <div class="nav-auth-logged-in flex items-center gap-3" style="display:none;">
+                    <a href="admin.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">لوحة التحكم</a>
+                    <button onclick="logout()" class="px-6 py-2.5 bg-red-100 text-red-600 rounded-xl font-bold hover:bg-red-200 transition">تسجيل خروج</button>
+                </div>
             </div>
         </nav>
     </header>
@@ -74,31 +81,71 @@
                         <h3
                             class="text-2xl font-black mb-8 text-right underline underline-offset-8 decoration-emerald-500">
                             تفاصيل العقار</h3>
-                        <form class="space-y-6 text-right font-bold">
+                        <form id="sellForm" onsubmit="handleSellForm(event)" class="space-y-6 text-right font-bold">
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">عنوان العقار</label>
+                                <input name="Title" type="text" placeholder="مثال: شقة فاخرة في التجمع الخامس"
+                                    class="w-full p-4 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none bg-slate-50 text-right" required>
+                            </div>
+
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div>
-                                    <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">نوع العقار</label>
-                                    <select
-                                        class="w-full p-4 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none bg-slate-50">
-                                        <option>شقة سكنية</option>
-                                        <option>فيلا مستقلة</option>
-                                        <option>شاليه</option>
-                                        <option>محل تجاري</option>
-                                    </select>
+                                    <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">السعر (ج.م)</label>
+                                    <input name="Price" type="number" placeholder="2500000"
+                                        class="w-full p-4 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none bg-slate-50 text-right" required>
                                 </div>
                                 <div>
-                                    <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">المساحة
-                                        (متر)</label>
-                                    <input type="number" placeholder="150"
-                                        class="w-full p-4 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none bg-slate-50 text-right">
+                                    <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">عدد الغرف</label>
+                                    <input name="Rooms" type="number" placeholder="3"
+                                        class="w-full p-4 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none bg-slate-50 text-right" required>
                                 </div>
                             </div>
 
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div>
-                                    <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">المنطقة</label>
-                                    <input type="text" placeholder="القاهرة الجديدة"
-                                        class="w-full p-4 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none bg-slate-50 text-right">
+                                    <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">عدد الحمامات</label>
+                                    <input name="Bathrooms" type="number" placeholder="2"
+                                        class="w-full p-4 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none bg-slate-50 text-right" required>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">المساحة
+                                        (متر)</label>
+                                    <input name="Area" type="number" placeholder="150"
+                                        class="w-full p-4 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none bg-slate-50 text-right" required>
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">نوع العقار</label>
+                                    <select name="CategoryId"
+                                        class="w-full p-4 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none bg-slate-50">
+                                        <option value="1">شقة سكنية</option>
+                                        <option value="2">فيلا مستقلة</option>
+                                        <option value="3">شاليه</option>
+                                        <option value="4">محل تجاري</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">المدينة</label>
+                                    <select name="CityId"
+                                        class="w-full p-4 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none bg-slate-50">
+                                        <option value="1">القاهرة الجديدة</option>
+                                        <option value="2">التجمع الخامس</option>
+                                        <option value="3">مدينة الشروق</option>
+                                        <option value="4">الإسكندرية</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">نوع العرض</label>
+                                    <select name="Status"
+                                        class="w-full p-4 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none bg-slate-50">
+                                        <option value="1">للبيع</option>
+                                        <option value="2">للإيجار</option>
+                                    </select>
                                 </div>
                                 <div>
                                     <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">رقم التواصل</label>
@@ -108,28 +155,15 @@
                             </div>
 
                             <div>
-                                <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">طريقة الدفع</label>
-                                <div class="flex gap-6 mt-2 mr-2">
-                                    <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="radio" name="payment" class="w-4 h-4 accent-emerald-500" checked>
-                                        كاش
-                                    </label>
-                                    <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="radio" name="payment" class="w-4 h-4 accent-emerald-500"> تقسيط
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div>
                                 <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">وصف العقار</label>
-                                <textarea rows="4" placeholder="اكتب تفاصيل إضافية..."
+                                <textarea name="Description" rows="4" placeholder="اكتب تفاصيل إضافية..."
                                     class="w-full p-4 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none bg-slate-50 text-right"></textarea>
                             </div>
 
-                            <div
-                                class="border-2 border-dashed border-slate-200 rounded-2xl p-8 text-center bg-slate-50 hover:border-blue-400 transition cursor-pointer">
-                                <span class="text-3xl mb-2 block">📸</span>
-                                <span class="text-xs text-slate-500">اضغط لرفع صور العقار</span>
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-2 mr-2 uppercase">صورة العقار</label>
+                                <input name="ImageFile" type="file" accept="image/*"
+                                    class="w-full p-4 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none bg-slate-50">
                             </div>
 
                             <button type="submit"

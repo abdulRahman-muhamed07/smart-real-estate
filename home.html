@@ -31,6 +31,7 @@
                             class="text-blue-600 flex items-center gap-1 cursor-pointer font-black">بحث AI <span
                                 class="text-[10px] bg-blue-100 px-1 rounded">PRO</span></a></li>
                     <li><a href="#" class="hover:text-blue-600 cursor-pointer transition">من نحن</a></li>
+                    <li><a href="admin.html" class="hover:text-blue-600 cursor-pointer transition">لوحة التحكم</a></li>
                 </ul>
             </div>
             <div class="flex items-center gap-6">
@@ -40,11 +41,17 @@
                     <span
                         class="wishlist-counter absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white hidden">0</span>
                 </a>
-                <a href="login.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">تسجيل
-                    دخول</a>
-                <button
-                    class="px-6 py-2.5 bg-blue-700 text-white rounded-xl font-bold hover:bg-blue-800 shadow-lg shadow-blue-100 transition">ابدأ
-                    الآن</button>
+                <div class="nav-auth-logged-out flex items-center gap-3">
+                    <a href="login.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">تسجيل
+                        دخول</a>
+                    <a href="signup.html"
+                        class="px-6 py-2.5 bg-blue-700 text-white rounded-xl font-bold hover:bg-blue-800 shadow-lg shadow-blue-100 transition">ابدأ
+                        الآن</a>
+                </div>
+                <div class="nav-auth-logged-in flex items-center gap-3" style="display:none;">
+                    <a href="admin.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">لوحة التحكم</a>
+                    <button onclick="logout()" class="px-6 py-2.5 bg-red-100 text-red-600 rounded-xl font-bold hover:bg-red-200 transition">تسجيل خروج</button>
+                </div>
             </div>
         </nav>
     </header>
@@ -219,10 +226,7 @@
 
     <script src="assets/js/scripts.js"></script>
     <script>
-        window.onload = () => {
-            renderGrids();
-            document.getElementById('chat-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendChatMessage(); });
-        };
+        document.getElementById('chat-input')?.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendChatMessage(); });
     </script>
 </body>
 
