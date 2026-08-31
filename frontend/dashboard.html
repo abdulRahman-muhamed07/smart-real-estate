@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحتي | الذكاء العقاري</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/global.css">
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+    <header class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-[100]">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-12">
+                <a href="index.html" class="text-2xl font-black text-blue-700 flex items-center gap-2 cursor-pointer">
+                    <span class="bg-blue-600 text-white p-1 rounded-lg">🏠</span> الذكاء العقاري
+                </a>
+                <ul class="hidden lg:flex gap-8 text-slate-600 font-bold text-sm">
+                    <li><a href="index.html" class="hover:text-blue-600 transition">الرئيسية</a></li>
+                    <li><a href="all-properties.html?type=sale" class="hover:text-blue-600 transition">شراء</a></li>
+                    <li><a href="sell.html" class="hover:text-blue-600 transition">بيع</a></li>
+                    <li><a href="all-properties.html?type=rent" class="hover:text-blue-600 transition">إيجار</a></li>
+                    <li class="admin-only hidden"><a href="admin.html" class="hover:text-blue-600 transition">الإدارة</a></li>
+                </ul>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="nav-user-name hidden md:inline font-bold text-slate-500"></span>
+                <a href="wishlist.html" class="relative group p-2 hover:bg-slate-50 rounded-xl transition-all">
+                    <span class="text-2xl group-hover:scale-110 inline-block transition">🤍</span>
+                    <span class="wishlist-counter absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white hidden">0</span>
+                </a>
+                <button onclick="logout()" class="px-5 py-2.5 bg-red-100 text-red-600 rounded-xl font-bold hover:bg-red-200 transition">خروج</button>
+            </div>
+        </nav>
+    </header>
+
+    <main id="userDashboardApp" class="container mx-auto px-6 py-10 animate-section">
+        <!-- Welcome Header -->
+        <section class="bg-white rounded-[2.5rem] p-8 shadow-sm border border-slate-100 mb-8">
+            <div class="flex flex-col lg:flex-row justify-between gap-6 items-start lg:items-center">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <h1 class="text-4xl lg:text-5xl font-black">مرحباً، <span id="dashboardUserName">مستخدم</span></h1>
+                        <span id="dashboardRoleBadge" class="px-4 py-1.5 rounded-full text-xs font-black"></span>
+                    </div>
+                    <p id="dashboardUserEmail" class="text-slate-400 font-bold"></p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="sell.html" class="px-6 py-3 bg-emerald-500 text-white rounded-xl font-black hover:bg-emerald-600 transition shadow-lg shadow-emerald-100">إضافة عقار</a>
+                    <a href="all-properties.html" class="px-6 py-3 bg-white text-slate-700 rounded-xl font-black hover:bg-slate-100 transition shadow-sm border border-slate-100">تصفح العقارات</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                <p class="text-slate-400 font-bold text-sm mb-1">عقاراتي</p>
+                <p id="userStatProperties" class="text-4xl font-black text-blue-700">-</p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                <p class="text-slate-400 font-bold text-sm mb-1">متاحة</p>
+                <p id="userStatPending" class="text-4xl font-black text-amber-500">-</p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                <p class="text-slate-400 font-bold text-sm mb-1">طلبات التواصل</p>
+                <p id="userStatRequests" class="text-4xl font-black text-emerald-600">-</p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                <p class="text-slate-400 font-bold text-sm mb-1">المحفوظة</p>
+                <p id="userStatSaved" class="text-4xl font-black text-red-500">-</p>
+            </div>
+        </section>
+
+        <section class="flex flex-wrap gap-3 mb-6">
+            <button onclick="switchDashboardTab('properties')" id="tab-properties" class="px-5 py-3 bg-blue-700 text-white rounded-xl font-black shadow-lg shadow-blue-100 transition">عقاراتي</button>
+            <button onclick="switchDashboardTab('requests')" id="tab-requests" class="px-5 py-3 bg-white text-slate-600 rounded-xl font-bold hover:bg-slate-100 transition shadow-sm border border-slate-100">الطلبات</button>
+            <button onclick="switchDashboardTab('saved')" id="tab-saved" class="px-5 py-3 bg-white text-slate-600 rounded-xl font-bold hover:bg-slate-100 transition shadow-sm border border-slate-100">المحفوظة</button>
+            <button onclick="switchDashboardTab('account')" id="tab-account" class="px-5 py-3 bg-white text-slate-600 rounded-xl font-bold hover:bg-slate-100 transition shadow-sm border border-slate-100">الحساب</button>
+        </section>
+
+        <section id="dashboard-properties">
+            <div class="flex justify-between items-center mb-5">
+                <h2 class="text-2xl font-black">عقاراتي المنشورة</h2>
+                <a href="sell.html" class="text-blue-700 font-black hover:underline">إضافة عقار جديد</a>
+            </div>
+            <div id="dashboard-properties-list" class="grid gap-4"></div>
+        </section>
+
+        <section id="dashboard-requests" class="hidden">
+            <h2 class="text-2xl font-black mb-5">طلبات التواصل والشراء</h2>
+            <div id="dashboard-requests-list" class="grid gap-4"></div>
+        </section>
+
+        <section id="dashboard-saved" class="hidden">
+            <div class="flex justify-between items-center mb-5">
+                <h2 class="text-2xl font-black">العقارات المحفوظة</h2>
+                <a href="wishlist.html" class="text-blue-700 font-black hover:underline">عرض القائمة</a>
+            </div>
+            <div id="dashboard-saved-grid" class="grid md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+            <div id="dashboard-saved-empty" class="hidden bg-white rounded-2xl p-10 text-center text-slate-400 font-bold border border-slate-100">لا توجد عقارات محفوظة بعد.</div>
+        </section>
+
+        <section id="dashboard-account" class="hidden">
+            <h2 class="text-2xl font-black mb-5">بيانات الحساب</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                    <h3 class="font-black text-lg mb-5 flex items-center gap-2">👤 المعلومات الشخصية</h3>
+                    <div class="space-y-4 text-right font-bold">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1 mr-1">الاسم</label>
+                            <input name="name" type="text" readonly class="w-full p-3 border border-slate-100 rounded-xl outline-none bg-slate-50 text-right">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1 mr-1">البريد الإلكتروني</label>
+                            <input name="email" type="email" readonly class="w-full p-3 border border-slate-100 rounded-xl outline-none bg-slate-50 text-left" dir="ltr">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1 mr-1">رقم الهاتف</label>
+                            <input name="phone" type="text" readonly class="w-full p-3 border border-slate-100 rounded-xl outline-none bg-slate-50 text-left" dir="ltr">
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                    <h3 class="font-black text-lg mb-5 flex items-center gap-2">🛡️ نوع الحساب</h3>
+                    <div class="space-y-4 text-right font-bold">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1 mr-1">الدور</label>
+                            <input name="role" type="text" readonly class="w-full p-3 border border-slate-100 rounded-xl outline-none bg-slate-50 text-right">
+                        </div>
+                        <div id="role-permissions" class="bg-blue-50 rounded-xl p-4 text-sm text-blue-800"></div>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-slate-100">
+                        <h4 class="font-black text-sm mb-3">روابط سريعة</h4>
+                        <div class="flex flex-wrap gap-2" id="quick-links"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/js/api-config.js"></script>
+    <script src="assets/js/scripts.js"></script>
+</body>
+
+</html>

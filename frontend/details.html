@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل العقار | الذكاء العقاري</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <style>
+        #review-comment::placeholder { text-align: center; font-weight: 400; color: #94a3b8; }
+    </style>
+</head>
+
+<body class="bg-white text-slate-900">
+
+    <!-- Universal Header -->
+    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-[100]">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-12">
+                <a href="index.html" class="text-2xl font-black text-blue-700 flex items-center gap-2 cursor-pointer">
+                    <span class="bg-blue-600 text-white p-1 rounded-lg">🏠</span> الذكاء العقاري
+                </a>
+                <ul class="hidden lg:flex gap-8 text-slate-600 font-bold text-sm">
+                    <li><a href="index.html" class="hover:text-blue-600 cursor-pointer transition">الرئيسية</a></li>
+                    <li><a href="all-properties.html?type=sale"
+                            class="hover:text-blue-600 cursor-pointer transition">شراء</a></li>
+                    <li><a href="sell.html" class="hover:text-blue-600 cursor-pointer transition">بيع</a></li>
+                    <li><a href="all-properties.html?type=rent"
+                            class="hover:text-blue-600 cursor-pointer transition">إيجار</a></li>
+                    <li><a href="dashboard.html" class="hover:text-blue-600 cursor-pointer transition">لوحتي</a></li>
+                    <li class="admin-only hidden"><a href="admin.html" class="hover:text-blue-600 cursor-pointer transition">الإدارة</a></li>
+                </ul>
+            </div>
+            <div class="flex items-center gap-6">
+                <!-- Wishlist Link -->
+                <a href="wishlist.html" class="relative group p-2 hover:bg-slate-50 rounded-xl transition-all">
+                    <span class="text-2xl group-hover:scale-110 inline-block transition">🤍</span>
+                    <span
+                        class="wishlist-counter absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white hidden">0</span>
+                </a>
+                <div class="nav-auth-logged-out flex items-center gap-3">
+                    <a href="login.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">تسجيل
+                        دخول</a>
+                    <a href="signup.html"
+                        class="px-6 py-2.5 bg-blue-700 text-white rounded-xl font-bold hover:bg-blue-800 shadow-lg shadow-blue-100 transition">ابدأ
+                        الآن</a>
+                </div>
+                <div class="nav-auth-logged-in flex items-center gap-3" style="display:none;">
+                    <a href="dashboard.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">لوحتي</a>
+                    <a href="admin.html" class="admin-only hidden px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">الإدارة</a>
+                    <button onclick="logout()" class="px-6 py-2.5 bg-red-100 text-red-600 rounded-xl font-bold hover:bg-red-200 transition">تسجيل خروج</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="py-12 animate-section">
+        <div class="container mx-auto px-6">
+            <div id="property-details-container" class="grid lg:grid-cols-2 gap-16 items-start">
+                <!-- Gallery Section -->
+                <div class="space-y-6">
+                    <div class="rounded-[2.5rem] overflow-hidden shadow-2xl h-[500px] relative" id="prop-slider">
+                        <!-- Image slider rendered by JS -->
+                        <img id="prop-img" src="" class="w-full h-full object-cover hidden">
+                    </div>
+                </div>
+
+                <!-- Info Section -->
+                <div class="text-right">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <span id="prop-match"
+                                class="bg-blue-100 text-blue-700 px-4 py-1.5 rounded-full text-sm font-black mb-4 inline-block tracking-widest"></span>
+                            <h1 id="prop-title" class="text-5xl font-black mb-4"></h1>
+                            <p id="prop-loc" class="text-slate-500 font-bold mb-8 flex items-center justify-end gap-2">
+                            </p>
+                        </div>
+                        <div class="text-right">
+                            <span id="prop-price" class="text-5xl font-black text-blue-700"></span>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end gap-12 py-8 border-y border-slate-100 mb-12">
+                        <div class="text-center">
+                            <span id="prop-beds" class="block text-2xl font-black text-slate-800"></span>
+                            <span
+                                class="text-slate-400 font-bold text-xs uppercase text-center w-full block">غرف</span>
+                        </div>
+                        <div class="text-center">
+                            <span id="prop-baths" class="block text-2xl font-black text-slate-800"></span>
+                            <span
+                                class="text-slate-400 font-bold text-xs uppercase text-center w-full block">حمامات</span>
+                        </div>
+                        <div class="text-center">
+                            <span id="prop-sqft" class="block text-2xl font-black text-slate-800"></span>
+                            <span
+                                class="text-slate-400 font-bold text-xs uppercase text-center w-full block">م²</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-12">
+                        <h3 class="text-2xl font-black mb-6">عن العقار</h3>
+                        <p id="prop-desc" class="text-slate-600 leading-relaxed font-bold text-lg">
+                        </p>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <button onclick="handleBuyNow()"
+                            class="flex-1 bg-blue-700 hover:bg-blue-800 text-white font-black py-6 rounded-2xl shadow-xl shadow-blue-100 transition-all text-xl">
+                            اشتري الآن
+                        </button>
+                        <button onclick="handleBuyNow()"
+                            class="px-10 border-2 border-blue-700 text-blue-700 font-black rounded-2xl hover:bg-blue-50 transition">
+                            تواصل
+                        </button>
+                        <button id="details-wishlist-btn"
+                            onclick="toggleWishlist(this.dataset.id || new URLSearchParams(window.location.search).get('id'));"
+                            class="wishlist-btn px-6 border-2 border-slate-200 text-slate-400 font-black rounded-2xl hover:bg-slate-50 transition flex items-center justify-center"
+                            data-id="">
+                            <span class="heart-icon text-2xl">🤍</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="not-found" class="hidden py-40 text-center">
+                <h2 class="text-4xl font-black mb-4">العقار غير موجود</h2>
+                <a href="home.html" class="text-blue-700 font-black underline">العودة للرئيسية</a>
+            </div>
+
+            <!-- Reviews Section -->
+            <div id="reviews-section" class="mt-24 max-w-3xl mx-auto">
+                <h3 class="text-3xl font-black mb-8 text-center">التقييمات والمراجعات</h3>
+                
+                <!-- Review Form (logged in users) -->
+                <div id="review-form-container" class="bg-slate-50 rounded-[2.5rem] p-8 mb-12">
+                    <h4 class="text-xl font-black mb-6">أضف تقييمك</h4>
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-600 mb-2">التقييم</label>
+                            <div class="flex gap-2" id="review-stars">
+                                <button onclick="setReviewRating(1)" class="review-star text-3xl text-slate-300 hover:text-yellow-400 transition">★</button>
+                                <button onclick="setReviewRating(2)" class="review-star text-3xl text-slate-300 hover:text-yellow-400 transition">★</button>
+                                <button onclick="setReviewRating(3)" class="review-star text-3xl text-slate-300 hover:text-yellow-400 transition">★</button>
+                                <button onclick="setReviewRating(4)" class="review-star text-3xl text-slate-300 hover:text-yellow-400 transition">★</button>
+                                <button onclick="setReviewRating(5)" class="review-star text-3xl text-slate-300 hover:text-yellow-400 transition">★</button>
+                            </div>
+                        </div>
+                        <div>
+                            <textarea id="review-comment" rows="4" placeholder="اكتب تعليقك..." dir="rtl"
+                                class="w-full p-5 border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-blue-600 transition font-bold text-right"></textarea>
+                        </div>
+                        <button onclick="submitReview()"
+                            class="bg-blue-700 text-white px-8 py-4 rounded-2xl font-black hover:bg-blue-800 transition shadow-lg">
+                            إرسال التقييم
+                        </button>
+                        <p id="review-error" class="hidden text-red-500 font-bold text-sm"></p>
+                    </div>
+                </div>
+
+                <!-- Reviews List -->
+                <div id="reviews-list" class="space-y-6">
+                    <div class="text-center text-slate-400 font-bold py-8">جاري تحميل التقييمات...</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-950 text-white pt-24 pb-12 mt-24 text-right">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
+            <div>
+                <a href="index.html"
+                    class="text-3xl font-black mb-8 flex items-center gap-2 cursor-pointer justify-end">
+                    <span class="bg-blue-600 text-white p-1 rounded-lg">🏠</span> الذكاء العقاري
+                </a>
+                <p class="text-slate-400 leading-relaxed font-bold">منصة رائدة في مجال العقارات في مصر.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-xl font-black mb-8">الخدمات</h4>
+                <ul class="space-y-4 text-slate-400 font-bold">
+                    <li><a href="all-properties.html?type=sale" class="hover:text-white transition">شراء عقارات</a></li>
+                    <li><a href="all-properties.html?type=rent" class="hover:text-white transition">إيجار عقارات</a>
+                    </li>
+                    <li><a href="sell.html" class="hover:text-white transition">بيع عقاري</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xl font-black mb-8">الروابط</h4>
+                <ul class="space-y-4 text-slate-400 font-bold">
+                    <li><a href="index.html" class="hover:text-white transition">الرئيسية</a></li>
+                    <li><a href="login.html" class="hover:text-white transition">دخول</a></li>
+                    <li><a href="signup.html" class="hover:text-white transition">تسجيل</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xl font-black mb-8">تواصل معنا</h4>
+                <ul class="space-y-4 text-slate-400 font-bold">
+                    <li>info@aqaridzki.com</li>
+                    <li>+20 100 000 0000</li>
+                </ul>
+            </div>
+        </div>
+        <div
+            class="container mx-auto px-6 border-t border-white/5 mt-20 pt-10 text-center text-slate-500 font-bold text-sm">
+            © 2026 الذكاء العقاري. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="assets/js/api-config.js"></script>
+    <script src="assets/js/scripts.js"></script>
+</body>
+
+</html>

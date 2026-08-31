@@ -1,0 +1,11 @@
+// Restrict access to a route based on one or more allowed roles.
+const authorize = (...roles) => {
+    return (req, res, next) => {
+        if (!req.user || !roles.includes(req.user.role)) {
+            return res.status(403).json({ message: "Forbidden: insufficient permissions" });
+        }
+        return next();
+    };
+};
+
+module.exports = { authorize };

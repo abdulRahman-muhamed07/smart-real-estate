@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الإدارة | الذكاء العقاري</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/global.css">
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+    <header class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-[100]">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-12">
+                <a href="index.html" class="text-2xl font-black text-blue-700 flex items-center gap-2 cursor-pointer">
+                    <span class="bg-blue-600 text-white p-1 rounded-lg">🏠</span> الذكاء العقاري
+                </a>
+                <ul class="hidden lg:flex gap-8 text-slate-600 font-bold text-sm">
+                    <li><a href="index.html" class="hover:text-blue-600 transition">الرئيسية</a></li>
+                    <li><a href="all-properties.html?type=sale" class="hover:text-blue-600 transition">شراء</a></li>
+                    <li><a href="sell.html" class="hover:text-blue-600 transition">بيع</a></li>
+                    <li><a href="all-properties.html?type=rent" class="hover:text-blue-600 transition">إيجار</a></li>
+                    <li><a href="dashboard.html" class="hover:text-blue-600 transition">لوحتي</a></li>
+                    <li><a href="admin.html" class="text-blue-600 font-black transition">الإدارة</a></li>
+                </ul>
+            </div>
+            <div class="flex items-center gap-3">
+                <span id="adminName" class="hidden md:inline font-bold text-slate-500"></span>
+                <a href="dashboard.html" class="px-5 py-2.5 bg-slate-100 text-slate-700 rounded-xl font-bold hover:bg-slate-200 transition">لوحتي</a>
+                <button onclick="logout()" class="px-5 py-2.5 bg-red-100 text-red-600 rounded-xl font-bold hover:bg-red-200 transition">خروج</button>
+            </div>
+        </nav>
+    </header>
+
+    <main id="adminDashboardApp" class="container mx-auto px-6 py-10 animate-section">
+        <section class="flex flex-col lg:flex-row justify-between gap-6 items-start lg:items-end mb-8">
+            <div>
+                <p class="text-slate-400 font-bold mb-2">إدارة المحتوى والمستخدمين</p>
+                <h1 class="text-4xl lg:text-5xl font-black">لوحة الإدارة</h1>
+            </div>
+            <div class="flex flex-wrap gap-3">
+                <a href="sell.html" class="px-6 py-3 bg-emerald-500 text-white rounded-xl font-black hover:bg-emerald-600 transition shadow-lg shadow-emerald-100">إضافة عقار</a>
+                <button onclick="loadAdminDashboard()" class="px-6 py-3 bg-white text-slate-700 rounded-xl font-black hover:bg-slate-100 transition shadow-sm border border-slate-100">تحديث</button>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                <p class="text-slate-400 font-bold text-sm mb-1">إجمالي العقارات</p>
+                <p id="statTotal" class="text-4xl font-black text-blue-700">-</p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                <p class="text-slate-400 font-bold text-sm mb-1">العقارات المتاحة</p>
+                <p id="statPending" class="text-4xl font-black text-amber-500">-</p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                <p class="text-slate-400 font-bold text-sm mb-1">المستخدمون</p>
+                <p id="statUsers" class="text-4xl font-black text-emerald-600">-</p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                <p class="text-slate-400 font-bold text-sm mb-1">حجوزات معلقة</p>
+                <p id="statRequests" class="text-4xl font-black text-red-500">-</p>
+            </div>
+        </section>
+
+        <section class="flex flex-wrap gap-3 mb-6">
+            <button onclick="switchAdminTab('all')" id="tab-all" class="px-5 py-3 bg-blue-700 text-white rounded-xl font-black shadow-lg shadow-blue-100 transition">كل العقارات</button>
+            <button onclick="switchAdminTab('users')" id="tab-users" class="px-5 py-3 bg-white text-slate-600 rounded-xl font-bold hover:bg-slate-100 transition shadow-sm border border-slate-100">المستخدمون</button>
+        </section>
+
+        <section id="admin-all">
+            <h2 class="text-2xl font-black mb-5">جميع العقارات</h2>
+            <div id="allGrid" class="grid gap-4"></div>
+        </section>
+
+        <section id="admin-users" class="hidden">
+            <h2 class="text-2xl font-black mb-5">المستخدمون</h2>
+            <div id="usersGrid" class="grid gap-4"></div>
+        </section>
+    </main>
+
+    <script src="assets/js/api-config.js"></script>
+    <script src="assets/js/scripts.js"></script>
+</body>
+
+</html>

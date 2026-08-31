@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>انشاء حساب | العقار الذكي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
+    <style>.bg-auth { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1900'); background-size: cover; background-position: center; }</style>
+</head>
+<body class="min-h-screen bg-auth flex items-center justify-center py-16 px-4 relative">
+    <a href="index.html" class="absolute top-10 right-10 text-white font-black flex items-center gap-2 bg-black/30 px-6 py-3 rounded-2xl backdrop-blur-md hover:bg-black/50 transition">🏠 العودة للرئيسية</a>
+    <div class="glass-card p-12 lg:p-16 rounded-[3.5rem] shadow-2xl w-full max-w-2xl text-center animate-section bg-white/95 backdrop-blur-xl">
+        <h2 class="text-3xl font-black mb-8 text-slate-800">انشاء حساب جديد</h2>
+        <form id="signupForm" class="space-y-5 text-right font-bold">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                    <label class="block text-xs text-slate-500 mb-1.5 mr-2 uppercase tracking-wide font-black">الاسم الأول</label>
+                    <input id="signupFirstName" name="firstName" type="text" placeholder="محمد" dir="rtl" class="w-full p-4 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-700 outline-none bg-white text-right" required>
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-500 mb-1.5 mr-2 uppercase tracking-wide font-black">اسم العائلة</label>
+                    <input id="signupLastName" name="lastName" type="text" placeholder="علي" dir="rtl" class="w-full p-4 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-700 outline-none bg-white text-right" required>
+                </div>
+            </div>
+            <div>
+                <label class="block text-xs text-slate-500 mb-1.5 mr-2 uppercase tracking-wide font-black">البريد الإلكتروني</label>
+                <input id="signupEmail" name="email" type="email" placeholder="example@mail.com" dir="rtl" class="w-full p-4 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-700 outline-none bg-white text-right" required>
+            </div>
+            <div class="grid md:grid-cols-2 gap-5">
+                <div>
+                    <label class="block text-xs text-slate-500 mb-1.5 mr-2 uppercase tracking-wide font-black">كلمة المرور</label>
+                    <input id="signupPassword" name="password" type="password" placeholder="••••••••" dir="rtl" class="w-full p-4 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-700 outline-none bg-white text-right" required>
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-500 mb-1.5 mr-2 uppercase tracking-wide font-black">تأكيد كلمة المرور</label>
+                    <input id="signupConfirm" name="confirmPassword" type="password" placeholder="••••••••" dir="rtl" class="w-full p-4 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-700 outline-none bg-white text-right" required>
+                </div>
+            </div>
+            <div>
+                <label class="block text-xs text-slate-500 mb-1.5 mr-2 uppercase tracking-wide font-black">نوع الحساب</label>
+                <div class="grid grid-cols-2 gap-3">
+                    <label class="flex items-center justify-center gap-2 p-4 border border-slate-200 rounded-2xl cursor-pointer hover:border-blue-400 transition has-[:checked]:bg-blue-50 has-[:checked]:border-blue-600 has-[:checked]:text-blue-700">
+                        <input type="radio" name="role" value="user" checked class="accent-blue-700">
+                        <span class="font-bold text-sm">👤 مستخدم</span>
+                    </label>
+                    <label class="flex items-center justify-center gap-2 p-4 border border-slate-200 rounded-2xl cursor-pointer hover:border-blue-400 transition has-[:checked]:bg-blue-50 has-[:checked]:border-blue-600 has-[:checked]:text-blue-700">
+                        <input type="radio" name="role" value="vendor" class="accent-blue-700">
+                        <span class="font-bold text-sm">🏢 بائع</span>
+                    </label>
+                </div>
+            </div>
+            <button id="signupBtn" type="submit" class="w-full bg-blue-700 hover:bg-blue-800 text-white py-5 rounded-2xl font-black shadow-xl shadow-blue-100 transition-all text-lg mt-4">انشاء حساب</button>
+            <p id="signupError" class="text-red-500 font-bold text-sm hidden"></p>
+        </form>
+        <p class="mt-10 text-slate-600 font-bold">لديك حساب بالفعل؟ <a href="login.html" class="text-blue-700 hover:underline font-black">تسجيل دخول</a></p>
+    </div>
+    <script src="assets/js/api-config.js"></script>
+    <script src="assets/js/scripts.js"></script>
+</body>
+</html>

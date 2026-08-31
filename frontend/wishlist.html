@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>العقارات المحفوظة | الذكاء العقاري</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/global.css">
+</head>
+
+<body class="bg-white text-slate-900">
+
+    <!-- Universal Header -->
+    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-[100]">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-12">
+                <a href="index.html" class="text-2xl font-black text-blue-700 flex items-center gap-2 cursor-pointer">
+                    <span class="bg-blue-600 text-white p-1 rounded-lg">🏠</span> الذكاء العقاري
+                </a>
+                <ul class="hidden lg:flex gap-8 text-slate-600 font-bold text-sm">
+                    <li><a href="index.html" class="hover:text-blue-600 cursor-pointer transition">الرئيسية</a></li>
+                    <li><a href="all-properties.html?type=sale"
+                            class="hover:text-blue-600 cursor-pointer transition">شراء</a></li>
+                    <li><a href="sell.html" class="hover:text-blue-600 cursor-pointer transition">بيع</a></li>
+                    <li><a href="all-properties.html?type=rent"
+                            class="hover:text-blue-600 cursor-pointer transition">إيجار</a></li>
+                    <li><a href="dashboard.html" class="hover:text-blue-600 cursor-pointer transition">لوحتي</a></li>
+                    <li class="admin-only hidden"><a href="admin.html" class="hover:text-blue-600 cursor-pointer transition">الإدارة</a></li>
+                </ul>
+            </div>
+            <div class="flex items-center gap-6">
+                <!-- Wishlist Link -->
+                <a href="wishlist.html" class="relative group p-2 hover:bg-slate-50 rounded-xl transition-all">
+                    <span class="text-2xl group-hover:scale-110 inline-block transition">🤍</span>
+                    <span
+                        class="wishlist-counter absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white hidden">0</span>
+                </a>
+                <div class="nav-auth-logged-out flex items-center gap-3">
+                    <a href="login.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">تسجيل
+                        دخول</a>
+                    <a href="signup.html"
+                        class="px-6 py-2.5 bg-blue-700 text-white rounded-xl font-bold hover:bg-blue-800 shadow-lg shadow-blue-100 transition">ابدأ
+                        الآن</a>
+                </div>
+                <div class="nav-auth-logged-in flex items-center gap-3" style="display:none;">
+                    <a href="dashboard.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">لوحتي</a>
+                    <a href="admin.html" class="admin-only hidden px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">الإدارة</a>
+                    <button onclick="logout()" class="px-6 py-2.5 bg-red-100 text-red-600 rounded-xl font-bold hover:bg-red-200 transition">تسجيل خروج</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="py-20 animate-section min-h-[60vh]">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-end mb-16">
+                <div class="text-right">
+                    <h1 class="text-5xl font-black mb-4">العقارات المحفوظة</h1>
+                    <p class="text-slate-500 font-bold text-lg">قائمة العقارات التي نالت إعجابك</p>
+                </div>
+            </div>
+
+            <div id="wishlist-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Properties will be injected here -->
+            </div>
+
+            <div id="wishlist-empty" class="hidden py-40 text-center">
+                <div class="text-8xl mb-8">🏠</div>
+                <h2 class="text-4xl font-black mb-4">لا توجد عقارات محفوظة بعد</h2>
+                <p class="text-slate-500 font-bold mb-8">استكشف العقارات وأضف ما يعجبك إلى هذه القائمة</p>
+                <a href="all-properties.html"
+                    class="bg-blue-700 text-white px-10 py-4 rounded-2xl font-black shadow-xl shadow-blue-100 inline-block">تصفح
+                    العقارات</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-950 text-white pt-24 pb-12 mt-24 text-right">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
+            <div>
+                <a href="index.html"
+                    class="text-3xl font-black mb-8 flex items-center gap-2 cursor-pointer justify-end">
+                    <span class="bg-blue-600 text-white p-1 rounded-lg">🏠</span> الذكاء العقاري
+                </a>
+                <p class="text-slate-400 leading-relaxed font-bold">منصة رائدة في مجال العقارات في مصر.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-xl font-black mb-8">الخدمات</h4>
+                <ul class="space-y-4 text-slate-400 font-bold">
+                    <li><a href="all-properties.html?type=sale" class="hover:text-white transition">شراء عقارات</a></li>
+                    <li><a href="all-properties.html?type=rent" class="hover:text-white transition">إيجار عقارات</a>
+                    </li>
+                    <li><a href="sell.html" class="hover:text-white transition">بيع عقاري</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xl font-black mb-8">الروابط</h4>
+                <ul class="space-y-4 text-slate-400 font-bold">
+                    <li><a href="index.html" class="hover:text-white transition">الرئيسية</a></li>
+                    <li><a href="login.html" class="hover:text-white transition">دخول</a></li>
+                    <li><a href="signup.html" class="hover:text-white transition">تسجيل</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xl font-black mb-8">تواصل معنا</h4>
+                <ul class="space-y-4 text-slate-400 font-bold">
+                    <li>info@aqaridzki.com</li>
+                    <li>+20 100 000 0000</li>
+                </ul>
+            </div>
+        </div>
+        <div
+            class="container mx-auto px-6 border-t border-white/5 mt-20 pt-10 text-center text-slate-500 font-bold text-sm">
+            © 2026 الذكاء العقاري. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="assets/js/api-config.js"></script>
+    <script src="assets/js/scripts.js"></script>
+    <script>
+        async function renderWishlist() {
+            const grid = document.getElementById('wishlist-grid');
+            const emptyState = document.getElementById('wishlist-empty');
+
+            if (!grid) return;
+
+            // Show loading state
+            grid.innerHTML = '<div class="col-span-3 py-20 text-center"><div class="animate-spin w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-4"></div><p class="font-bold text-slate-400">جاري التحميل...</p></div>';
+
+            try {
+                let savedProperties = [];
+
+                if (isLoggedIn()) {
+                    // Load from backend favorites endpoint
+                    const data = await apiCall(endpoint('favorites'));
+                    savedProperties = data.favorites || [];
+                } else {
+                    // Fallback: filter from local wishlist
+                    if (!wishlist || wishlist.length === 0) {
+                        grid.innerHTML = '';
+                        emptyState.classList.remove('hidden');
+                        return;
+                    }
+                    const allData = await apiCall(endpoint('properties'));
+                    const allProps = asArray(allData);
+                    savedProperties = allProps.filter(p => wishlistHas(getPropertyId(p)));
+                }
+
+                if (!savedProperties.length) {
+                    grid.innerHTML = '';
+                    emptyState.classList.remove('hidden');
+                    return;
+                }
+
+                emptyState.classList.add('hidden');
+                grid.innerHTML = savedProperties.map(p => createWishlistCard(p)).join('');
+            } catch (e) {
+                console.error('Failed to load wishlist:', e);
+                grid.innerHTML = '<div class="col-span-3 py-12 text-center font-bold text-red-400">فشل تحميل المفضلة. تحقق من اتصالك.</div>';
+            }
+        }
+
+        function createWishlistCard(p) {
+            const id = getPropertyId(p);
+            const title = getPropertyTitle(p);
+            const image = getPropertyImage(p);
+            const price = formatCurrency(firstDefined(p, ['price', 'amount'], 0));
+            const city = getPropertyCity(p);
+            const area = getPropertyArea(p);
+            const rooms = getPropertyRooms(p);
+            const baths = getPropertyBaths(p);
+            const badge = getApprovalBadge(p);
+            return `
+                <div class="bg-white rounded-[2rem] shadow-lg border border-slate-100 overflow-hidden group flex flex-col">
+                    <div class="relative overflow-hidden h-52">
+                        <img src="${escapeAttr(image)}" alt="${escapeAttr(title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-3 right-3">
+                            <span class="${badge.className} px-3 py-1 rounded-full text-xs font-black">${escapeHtml(badge.text)}</span>
+                        </div>
+                        <button onclick="removeFromFavorites('${escapeAttr(id)}', this)" class="absolute top-3 left-3 w-9 h-9 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center transition shadow" title="إزالة من المفضلة">
+                            <span class="text-base leading-none">🗑️</span>
+                        </button>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <h3 class="font-black text-lg mb-2 leading-tight">${escapeHtml(title)}</h3>
+                        <p class="text-slate-500 text-sm font-bold mb-3">📍 ${escapeHtml(city)}</p>
+                        <div class="flex gap-4 text-xs text-slate-500 font-bold mb-4">
+                            ${rooms ? `<span>🛏 ${escapeHtml(String(rooms))} غرف</span>` : ''}
+                            ${baths ? `<span>🚿 ${escapeHtml(String(baths))} حمام</span>` : ''}
+                            ${area ? `<span>📐 ${escapeHtml(String(area))} م²</span>` : ''}
+                        </div>
+                        <p class="text-blue-700 font-black text-xl mb-4">${escapeHtml(price)}</p>
+                        <a href="details.html?id=${encodeURIComponent(id)}" class="mt-auto w-full text-center bg-blue-700 hover:bg-blue-800 text-white font-black py-3 rounded-xl transition">
+                            عرض التفاصيل
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function removeFromFavorites(id, btn) {
+            if (!isLoggedIn()) {
+                // Local only
+                await toggleWishlist(id);
+                renderWishlist();
+                return;
+            }
+            btn.disabled = true;
+            btn.innerHTML = '⏳';
+            try {
+                await apiCall(endpoint('favoriteRemove', id), { method: 'DELETE' });
+                // Update local wishlist
+                const index = wishlist.indexOf(normalizeWishlistId(id));
+                if (index > -1) wishlist.splice(index, 1);
+                localStorage.setItem('property_wishlist', JSON.stringify(wishlist));
+                updateWishlistUI();
+                renderWishlist();
+            } catch (e) {
+                btn.disabled = false;
+                btn.innerHTML = '🗑️';
+                alert(formatApiErrors(e.data, 'فشل إزالة العقار من المفضلة'));
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderWishlist();
+        });
+    </script>
+</body>
+
+</html>

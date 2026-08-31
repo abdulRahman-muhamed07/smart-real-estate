@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الذكاء العقاري | Smart Real Estate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/landing.css">
+</head>
+
+<body class="bg-white text-slate-900">
+
+    <!-- Universal Header -->
+    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-[100]">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-12">
+                <a href="index.html" class="text-2xl font-black text-blue-700 flex items-center gap-2 cursor-pointer">
+                    <span class="bg-blue-600 text-white p-1 rounded-lg">🏠</span> الذكاء العقاري
+                </a>
+                <ul class="hidden lg:flex gap-8 text-slate-600 font-bold text-sm">
+                    <li><a href="index.html" class="hover:text-blue-600 cursor-pointer transition">الرئيسية</a></li>
+                    <li><a href="all-properties.html?type=sale"
+                            class="hover:text-blue-600 cursor-pointer transition">شراء</a></li>
+                    <li><a href="sell.html" class="hover:text-blue-600 cursor-pointer transition">بيع</a></li>
+                    <li><a href="all-properties.html?type=rent"
+                            class="hover:text-blue-600 cursor-pointer transition">إيجار</a></li>
+                    <li><a href="dashboard.html" class="hover:text-blue-600 cursor-pointer transition">لوحتي</a></li>
+                    <li class="admin-only hidden"><a href="admin.html" class="hover:text-blue-600 cursor-pointer transition">الإدارة</a></li>
+                </ul>
+            </div>
+            <div class="flex items-center gap-6">
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden text-2xl text-slate-700 p-2">
+                    ☰
+                </button>
+                
+                <!-- Wishlist Link -->
+                <a href="wishlist.html" class="relative group p-2 hover:bg-slate-50 rounded-xl transition-all">
+                    <span class="text-2xl group-hover:scale-110 inline-block transition">🤍</span>
+                    <span
+                        class="wishlist-counter absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white hidden">0</span>
+                </a>
+                <div class="nav-auth-logged-out flex items-center gap-3">
+                    <a href="login.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">تسجيل
+                        دخول</a>
+                    <a href="signup.html"
+                        class="px-6 py-2.5 bg-blue-700 text-white rounded-xl font-bold hover:bg-blue-800 shadow-lg shadow-blue-100 transition">ابدأ
+                        الآن</a>
+                </div>
+                <div class="nav-auth-logged-in flex items-center gap-3" style="display:none;">
+                    <a href="dashboard.html" class="px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">لوحتي</a>
+                    <a href="admin.html" class="admin-only hidden px-5 py-2 text-slate-700 font-bold hover:text-blue-600 transition">الإدارة</a>
+                    <button onclick="logout()" class="px-6 py-2.5 bg-red-100 text-red-600 rounded-xl font-bold hover:bg-red-200 transition">تسجيل خروج</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-nav" class="fixed inset-0 bg-slate-900/95 z-[200] hidden flex flex-col items-center justify-center space-y-8 animate-fade-in lg:hidden">
+            <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-white text-4xl">&times;</button>
+            <a href="index.html" class="text-2xl font-black text-white hover:text-blue-400 transition">الرئيسية</a>
+            <a href="all-properties.html?type=sale" class="text-2xl font-black text-white hover:text-blue-400 transition">شراء</a>
+            <a href="sell.html" class="text-2xl font-black text-white hover:text-blue-400 transition">بيع</a>
+            <a href="all-properties.html?type=rent" class="text-2xl font-black text-white hover:text-blue-400 transition">إيجار</a>
+            <a href="dashboard.html" class="text-2xl font-black text-white hover:text-blue-400 transition">لوحتي</a>
+            <a href="admin.html" class="admin-only hidden text-2xl font-black text-white hover:text-blue-400 transition">الإدارة</a>
+            <div class="nav-auth-logged-out flex gap-4 mt-8">
+                <a href="login.html" class="px-8 py-3 bg-white text-slate-900 rounded-xl font-bold">دخول</a>
+                <a href="signup.html" class="px-8 py-3 bg-blue-600 text-white rounded-xl font-bold">تسجيل</a>
+            </div>
+            <div class="nav-auth-logged-in flex gap-4 mt-8" style="display:none;">
+                <button onclick="logout()" class="px-8 py-3 bg-red-500 text-white rounded-xl font-bold">تسجيل خروج</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="animate-section">
+        <!-- Hero -->
+        <section class="py-16 lg:py-24 bg-white">
+            <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-5xl lg:text-7xl font-black leading-[1.15] mb-8">
+                        اكتشف عقارك المثالي مع <br><span class="text-blue-700">الذكاء العقاري</span>
+                    </h1>
+                    <p class="text-slate-500 text-xl mb-10 leading-relaxed max-w-lg">
+                        منصة متكاملة لبيع وشراء وإيجار العقارات في مصر. تصفح آلاف العقارات المتاحة الآن.
+                    </p>
+                    <!-- Search Bar -->
+                    <div class="flex gap-2 mb-8 bg-white border-2 border-slate-100 rounded-2xl p-2 shadow-lg max-w-xl">
+                        <input type="text" id="hero-search" placeholder="ابحث بالمنطقة أو نوع العقار..." dir="rtl"
+                            class="flex-1 px-4 py-2 outline-none font-bold text-right bg-transparent"
+                            onkeydown="if(event.key==='Enter') heroSearch()">
+                        <button onclick="heroSearch()"
+                            class="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl font-black transition">
+                            🔍 بحث
+                        </button>
+                    </div>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="all-properties.html"
+                            class="bg-blue-700 text-white px-10 py-4 rounded-2xl font-black shadow-xl hover:shadow-blue-200 transition-all hover:-translate-y-1">تصفح
+                            العقارات</a>
+                        <a href="signup.html"
+                            class="border-2 border-blue-700 text-blue-700 px-10 py-4 rounded-2xl font-black hover:bg-blue-50 transition-all">ابدأ
+                            الآن</a>
+                    </div>
+                </div>
+
+                <!-- Hero Image -->
+                <div class="bg-slate-50 h-[500px] rounded-[3rem] shadow-2xl overflow-hidden border border-slate-100">
+                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800" alt="Smart Real Estate" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Us -->
+        <section class="py-24 bg-slate-50">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-black mb-4">لماذا الذكاء العقاري؟</h2>
+                <p class="text-slate-500 mb-16 font-bold">منصة متكاملة لجميع احتياجاتك العقارية</p>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all">
+                        <div
+                            class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-3xl mb-6 mx-auto">
+                            🚀</div>
+                        <h4 class="font-black text-xl mb-4">سهولة الاستخدام</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">واجهة بسيطة وتجربة مستخدم سلسة تمكنك من البحث والتصفح بكل سهولة.</p>
+                    </div>
+                    <div class="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all">
+                        <div
+                            class="w-16 h-16 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center text-3xl mb-6 mx-auto">
+                            🛡️</div>
+                        <h4 class="font-black text-xl mb-4">موثوقية عالية</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">عقارات حقيقية مع بيانات دقيقة ومحدثة باستمرار.</p>
+                    </div>
+                    <div class="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all">
+                        <div
+                            class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-3xl mb-6 mx-auto">
+                            📱</div>
+                        <h4 class="font-black text-xl mb-4">منصة متكاملة</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">بيع، شراء، وإيجار العقارات في مكان واحد.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-black mb-4">خدماتنا</h2>
+                    <p class="text-slate-500 font-bold">حلول شاملة لجميع احتياجاتك العقارية</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <a href="sell.html" class="group cursor-pointer">
+                        <div class="relative overflow-hidden rounded-[2.5rem] h-80 mb-6 shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&w=800"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-8 text-white">
+                                <h4 class="font-black text-xl mb-2">بيع عقار</h4>
+                                <p class="text-sm text-white/80 mb-4">اعرض عقارك بالسعر الأمثل باستخدام تحليل السوق
+                                    الذكِي.</p>
+                                <span class="text-emerald-400 font-bold flex items-center gap-2">ابدأ البيع
+                                    <span>←</span></span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="all-properties.html?type=sale" class="group cursor-pointer">
+                        <div class="relative overflow-hidden rounded-[2.5rem] h-80 mb-6 shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=800"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-8 text-white">
+                                <h4 class="font-black text-xl mb-2">شراء عقار</h4>
+                                <p class="text-sm text-white/80 mb-4">ابحث واقتنِ العقار المناسب بأفضل الأسعار.</p>
+                                <span class="text-emerald-400 font-bold flex items-center gap-2">ابدأ البحث
+                                    <span>←</span></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it works -->
+        <section class="py-24 bg-blue-700 text-white overflow-hidden relative">
+            <div class="container mx-auto px-6 relative z-10">
+                <h2 class="text-4xl font-black mb-16 text-center">كيف يعمل النظام؟</h2>
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div class="text-center group">
+                        <div
+                            class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center text-3xl font-black mb-6 mx-auto border border-white/20 group-hover:bg-emerald-400 group-hover:text-black transition-all">
+                            1</div>
+                        <h4 class="font-black text-lg mb-2">ابحث عن عقار</h4>
+                        <p class="text-white/60 text-sm">تصفح آلاف العقارات المتاحة للبيع والإيجار.</p>
+                    </div>
+                    <div class="text-center group">
+                        <div
+                            class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center text-3xl font-black mb-6 mx-auto border border-white/20 group-hover:bg-emerald-400 group-hover:text-black transition-all">
+                            2</div>
+                        <h4 class="font-black text-lg mb-2">اختر المفضل</h4>
+                        <p class="text-white/60 text-sm">قارن بين العقارات واختر الأنسب لك.</p>
+                    </div>
+                    <div class="text-center group">
+                        <div
+                            class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center text-3xl font-black mb-6 mx-auto border border-white/20 group-hover:bg-emerald-400 group-hover:text-black transition-all">
+                            3</div>
+                        <h4 class="font-black text-lg mb-2">تواصل مع البائع</h4>
+                        <p class="text-white/60 text-sm">أرسل طلب تواصل مباشر من خلال المنصة.</p>
+                    </div>
+                    <div class="text-center group">
+                        <div
+                            class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center text-3xl font-black mb-6 mx-auto border border-white/20 group-hover:bg-emerald-400 group-hover:text-black transition-all">
+                            4</div>
+                        <h4 class="font-black text-lg mb-2">أتممت الصفقة</h4>
+                        <p class="text-white/60 text-sm">أتمم عملية الشراء أو الإيجار بكل ثقة.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="py-24 bg-white text-center">
+            <div class="container mx-auto px-6 max-w-4xl bg-slate-900 rounded-[3.5rem] p-16 text-white shadow-2xl">
+                <h2 class="text-4xl font-black mb-6">ابحث عن عقارك المثالي</h2>
+                <p class="text-white/60 text-xl mb-12">سجل الآن وابحث بين مئات العقارات المتاحة</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="all-properties.html"
+                        class="bg-emerald-400 text-black px-10 py-4 rounded-2xl font-black shadow-lg hover:bg-emerald-500 transition">تصفح
+                        العقارات</a>
+                    <a href="signup.html"
+                        class="border-2 border-white/20 text-white px-10 py-4 rounded-2xl font-black hover:bg-white/10 transition">إنشاء
+                        حساب</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-950 text-white pt-24 pb-12 mt-24">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 text-right">
+            <div>
+                <a href="index.html"
+                    class="text-3xl font-black mb-8 flex items-center gap-2 cursor-pointer justify-end">
+                    <span class="bg-blue-600 text-white p-1 rounded-lg">🏠</span> الذكاء العقاري
+                </a>
+                <p class="text-slate-400 leading-relaxed font-bold">منصة رائدة في مجال العقارات في مصر.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-xl font-black mb-8">الخدمات</h4>
+                <ul class="space-y-4 text-slate-400 font-bold">
+                    <li><a href="all-properties.html?type=sale" class="hover:text-white transition">شراء عقارات</a></li>
+                    <li><a href="all-properties.html?type=rent" class="hover:text-white transition">إيجار عقارات</a>
+                    </li>
+                    <li><a href="sell.html" class="hover:text-white transition">بيع عقاري</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xl font-black mb-8">الروابط</h4>
+                <ul class="space-y-4 text-slate-400 font-bold">
+                    <li><a href="index.html" class="hover:text-white transition">الرئيسية</a></li>
+                    <li><a href="login.html" class="hover:text-white transition">دخول</a></li>
+                    <li><a href="signup.html" class="hover:text-white transition">تسجيل</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xl font-black mb-8">تواصل معنا</h4>
+                <ul class="space-y-4 text-slate-400 font-bold">
+                    <li>info@aqaridzki.com</li>
+                    <li>+20 100 000 0000</li>
+                </ul>
+            </div>
+        </div>
+        <div
+            class="container mx-auto px-6 border-t border-white/5 mt-20 pt-10 text-center text-slate-500 font-bold text-sm">
+            © 2026 الذكاء العقاري. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="assets/js/api-config.js"></script>
+    <script src="assets/js/scripts.js"></script>
+</body>
+
+</html>
